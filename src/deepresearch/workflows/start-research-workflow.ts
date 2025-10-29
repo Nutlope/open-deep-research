@@ -134,7 +134,7 @@ const generateResearchAnswer = async ({
         content: `Research Topic: ${topic}\n\nSearch Results:\n${formattedSearchResults}`,
       },
     ],
-    maxTokens: RESEARCH_CONFIG.maxTokens,
+    maxOutputTokens: RESEARCH_CONFIG.maxTokens,
   });
 
   let index = 0;

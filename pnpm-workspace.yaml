@@ -1,0 +1,3 @@
+onlyBuiltDependencies:
+  - '@clerk/shared'
+  - sharp
