@@ -11,7 +11,7 @@ import dedent from "dedent";
 // Specialized models for different stages of the research pipeline
 export const MODEL_CONFIG = {
   planningModel: "Qwen/Qwen2.5-72B-Instruct-Turbo", // Used for research planning and evaluation // 32k context window
-  jsonModel: "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo", // Used for structured data parsing
+  jsonModel: "zai-org/GLM-4.5-Air-FP8", // Used for structured data parsing
   summaryModel: "meta-llama/Llama-3.3-70B-Instruct-Turbo", // Used for web content summarization // 128k context window
   summaryModelLongPages: "meta-llama/Llama-4-Scout-17B-16E-Instruct", // Used for web content summarization of long pages
   answerModel: "deepseek-ai/DeepSeek-V3", // Used for final answer synthesis
@@ -53,7 +53,7 @@ When ranking search results, consider recency as a factor - newer information is
 // Instructions for each stage of the research process
 export const PROMPTS = {
   clarificationParsingPrompt:
-    dedent(`You are an AI research assistant. You will be given a research topic and a list of clarifying questions. Your task is to parse the questions return them in an array of strings.
+    dedent(`You are an AI research assistant. You will be given a research topic and a list of clarifying questions. Your task is to parse the questions and return them as a JSON object with a "questions" key containing an array of strings.
 
   ${REPLY_LANGUAGE}
   `),
