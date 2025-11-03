@@ -13,6 +13,7 @@ export const searchOnWeb = async ({
   query: string;
 }): Promise<SearchResults> => {
   // 1. Call Brave Search API for web results
+
   const res = await fetch(
     `https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(
       query
@@ -28,30 +29,43 @@ export const searchOnWeb = async ({
   const responseJson = await res.json();
   const parsedResponseJson = z
     .object({
-      web: z.object({
-        results: z.array(
-          z.object({
-            url: z.string(),
-            title: z.string(),
-            meta_url: z.object({
-              favicon: z.string(),
-            }),
-            extra_snippets: z.array(z.string()).default([]),
-            thumbnail: z
-              .object({
-                original: z.string(),
-              })
-              .optional(),
-          })
-        ),
-      }),
+      web: z
+        .object({
+          results: z.array(
+            z.object({
+              url: z.string(),
+              title: z.string(),
+              meta_url: z
+                .object({
+                  favicon: z.string(),
+                })
+                .optional(),
+              profile: z
+                .object({
+                  img: z.string(),
+                })
+                .optional(),
+              extra_snippets: z.array(z.string()).default([]),
+              thumbnail: z
+                .object({
+                  original: z.string(),
+                })
+                .optional(),
+            })
+          ),
+        })
+        .optional(),
     })
     .parse(responseJson);
+
+  if (!parsedResponseJson.web) {
+    return { results: [] };
+  }
 
   const parsedResults = parsedResponseJson.web.results.map((r) => ({
     title: r.title,
     url: r.url,
-    favicon: r.meta_url.favicon,
+    favicon: r.meta_url?.favicon || r.profile?.img || "",
     extraSnippets: r.extra_snippets,
     thumbnail: r.thumbnail?.original,
   }));
