@@ -10,7 +10,6 @@ import { WorkflowContext } from "@upstash/workflow";
 import { generateText, generateObject, streamText } from "ai";
 import { MODEL_CONFIG, PROMPTS, RESEARCH_CONFIG } from "../config";
 import {
-  togetherai,
   togetheraiClient,
   togetheraiClientWithKey,
   togetheraiWithKey,
