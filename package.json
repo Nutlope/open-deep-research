@@ -15,7 +15,7 @@
     "@ai-sdk/togetherai": "^1.0.25",
     "@aws-sdk/client-s3": "^3.817.0",
     "@clerk/nextjs": "^6.34.1",
-    "@mendable/firecrawl-js": "^1.25.5",
+    "@mendable/firecrawl-js": "^4.4.1",
     "@neondatabase/serverless": "^1.0.2",
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-dialog": "^1.1.14",

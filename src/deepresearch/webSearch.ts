@@ -72,22 +72,17 @@ export const searchOnWeb = async ({
   async function scrapeSearchResult(searchResult: SearchResult) {
     let scrapedText = "";
     let scrapeResponse:
-      | Awaited<ReturnType<typeof firecrawl.scrapeUrl>>
+      | Awaited<ReturnType<typeof firecrawl.scrape>>
       | undefined;
     try {
-      scrapeResponse = await firecrawl.scrapeUrl(searchResult.url, {
+      scrapeResponse = await firecrawl.scrape(searchResult.url, {
         formats: ["markdown"],
         timeout: 15000,
-        // 12 hours
-        maxAge: 12 * 60 * 60 * 1000,
+        // 24 hours
+        maxAge: 24 * 60 * 60 * 1000,
       });
-      if (scrapeResponse.error) {
-        throw scrapeResponse.error;
-      }
-      if (scrapeResponse.success) {
-        const rawText = scrapeResponse.markdown ?? "";
-        scrapedText = stripUrlsFromMarkdown(rawText).substring(0, 80_000);
-      }
+      const rawText = scrapeResponse.markdown ?? "";
+      scrapedText = stripUrlsFromMarkdown(rawText).substring(0, 80_000);
     } catch (e) {
       // ignore individual scrape errors
       console.warn("Error scraping", searchResult.url, " with error", e);
