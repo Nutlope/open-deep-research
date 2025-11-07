@@ -10,7 +10,6 @@ import { WorkflowContext } from "@upstash/workflow";
 import { generateText, generateObject, streamText } from "ai";
 import { MODEL_CONFIG, PROMPTS, RESEARCH_CONFIG } from "../config";
 import {
-  togetherai,
   togetheraiClient,
   togetheraiClientWithKey,
   togetheraiWithKey,
@@ -134,7 +133,7 @@ const generateResearchAnswer = async ({
         content: `Research Topic: ${topic}\n\nSearch Results:\n${formattedSearchResults}`,
       },
     ],
-    maxTokens: RESEARCH_CONFIG.maxTokens,
+    maxOutputTokens: RESEARCH_CONFIG.maxTokens,
   });
 
   let index = 0;

@@ -11,7 +11,7 @@ import dedent from "dedent";
 // Specialized models for different stages of the research pipeline
 export const MODEL_CONFIG = {
   planningModel: "Qwen/Qwen2.5-72B-Instruct-Turbo", // Used for research planning and evaluation // 32k context window
-  jsonModel: "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo", // Used for structured data parsing
+  jsonModel: "Qwen/Qwen3-Next-80B-A3B-Instruct", // Used for structured data parsing
   summaryModel: "meta-llama/Llama-3.3-70B-Instruct-Turbo", // Used for web content summarization // 128k context window
   summaryModelLongPages: "meta-llama/Llama-4-Scout-17B-16E-Instruct", // Used for web content summarization of long pages
   answerModel: "deepseek-ai/DeepSeek-V3", // Used for final answer synthesis
@@ -53,7 +53,7 @@ When ranking search results, consider recency as a factor - newer information is
 // Instructions for each stage of the research process
 export const PROMPTS = {
   clarificationParsingPrompt:
-    dedent(`You are an AI research assistant. You will be given a research topic and a list of clarifying questions. Your task is to parse the questions return them in an array of strings.
+    dedent(`You are an AI research assistant. You will be given a research topic and a list of clarifying questions. Your task is to parse the questions and return them as a JSON object with a "questions" key containing an array of strings.
 
   ${REPLY_LANGUAGE}
   `),
@@ -91,8 +91,14 @@ You are a strategic research planner with expertise in breaking down complex que
 ${REPLY_LANGUAGE}`),
 
   planParsingPrompt: `${getCurrentDateContext()}
-You are a research assistant, you will be provided with a plan of action to research a topic, identify the queries that we should run to search for the topic. Look carefully
-    at the general plan provided and identify the key queries that we should run. For dependent queries (those requiring results from earlier searches), leave them for later execution and focus only on the self-contained queries that can be run immediately.
+You are a research assistant. You will be provided with a plan of action to research a topic. Identify the queries that we should run to search for the topic.
+
+Look carefully at the general plan provided and identify the key queries that we should run. For dependent queries (those requiring results from earlier searches), leave them for later execution and focus only on the self-contained queries that can be run immediately.
+
+Return a JSON object with a "queries" array containing the identified search queries as strings.
+
+Example output:
+{"queries": ["query1", "query2", "query3"]}
     `,
 
   // Content Processing: Identifies relevant information from search results
@@ -154,7 +160,15 @@ ${REPLY_LANGUAGE}`),
 
   // Evaluation Parsing: Extracts structured data from evaluation output
   evaluationParsingPrompt: `${getCurrentDateContext()}
-    Extract follow-up search queries from the evaluation. If no follow-up queries are needed, return an empty list.`,
+    You are a research assistant. Analyze the provided evaluation text and extract any follow-up search queries mentioned.
+
+    Return a JSON object with a "queries" array containing the extracted search queries as strings. If no follow-up queries are needed or mentioned, return an empty array.
+
+    Example output:
+    {"queries": ["query1", "query2"]}
+
+    Or if no queries:
+    {"queries": []}`,
 
   // Source Filtering: Selects most relevant sources
   filterPrompt: `${getCurrentDateContext()}
