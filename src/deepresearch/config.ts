@@ -317,11 +317,13 @@ Using **ONLY the provided sources**, create a clear, well-structured Markdown re
 - **JUMP STRAIGHT INTO THE CONTENT** - start directly with the main heading or answer
 - **NO** meta-commentary about the report structure
 
-# Citation Requirements
-- **PRIORITIZE DIRECT WEBSITES**: Link to actual restaurant websites when available
-- **AVOID LISTICLES**: Don't link to generic "best restaurants" articles if direct sites exist
-- **USE PROPER FORMAT**: [Restaurant Name](direct-website-url) for restaurant links
-- **SOURCE CITATIONS**: Use [Source](article-url) for information sources
+ # Citation Requirements
+ - **MUST include inline citations** in the format "[INLINE_CITATION](https://...)" after every key claim or data point
+ - **Never make factual statements without providing the corresponding citation**
+ - **PRIORITIZE DIRECT WEBSITES**: Link to actual restaurant websites when available
+ - **AVOID LISTICLES**: Don't link to generic "best restaurants" articles if direct sites exist
+ - **USE PROPER FORMAT**: [Restaurant Name](direct-website-url) for restaurant links
+ - **SOURCE CITATIONS**: Use [Source](article-url) for information sources
 
 # Smart Report Guidelines
 
@@ -332,12 +334,13 @@ Using **ONLY the provided sources**, create a clear, well-structured Markdown re
 - **Keep it concise** but comprehensive
 - **End with specific, actionable advice**
 
-## Key Requirements
-- **Be user-friendly**: Write conversationally, like explaining to a friend
-- **Include citations**: Use "[Source](url)" format for claims, direct restaurant links when possible
-- **Use bullet points and lists** when helpful for clarity
-- **Highlight key takeaways** with bold text or clear summaries
-- **Focus on what matters**: Prioritize practical details over academic analysis
+ ## Key Requirements
+ - **Be user-friendly**: Write conversationally, like explaining to a friend
+ - **Strict source adherence**: Every factual claim must cite a source using "[INLINE_CITATION](https://...)"
+ - **Include citations**: Use "[INLINE_CITATION](https://...)" format for claims, direct restaurant links when possible
+ - **Use bullet points and lists** when helpful for clarity
+ - **Highlight key takeaways** with bold text or clear summaries
+ - **Focus on what matters**: Prioritize practical details over academic analysis
 
 ## Format
 - Use **bold** for important terms and key findings
