@@ -14,6 +14,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getChats } from "@/lib/getChats";
 import { ApiKeyControls } from "@/components/app/ApiKeyControls";
+import { TOGETHER_LINK } from "@/lib/utils";
 
 type Chat = Awaited<ReturnType<typeof getChats>>[number];
 
@@ -57,20 +58,39 @@ export function AppSidebar() {
     <Sidebar className="print:hidden">
       <SidebarHeader className="pt-5 px-5">
         <div className="flex flex-row justify-between items-center pb-6">
-          <Link className="flex flex-row items-center gap-2" href="/">
-            <div className="flex flex-row items-center gap-2">
-              <div className=" text-zinc-800 dark:text-zinc-100">
+          <div className="flex flex-row gap-2.5 items-center">
+            <Link className="flex flex-row items-center gap-2" href="/">
+              <div className="flex flex-row items-center gap-1">
                 <img
                   src="/logo.svg"
                   alt="Open Deep Research"
                   className="size-6"
                 />
+
+                <img
+                  src="/logoText.svg"
+                  alt="Open Deep Research"
+                  className="h-[15px] w-auto"
+                />
               </div>
-              <div className="text-lg font-bold text-zinc-800 dark:text-zinc-100 tracking-tighter">
-                Open Deep Research
-              </div>
-            </div>
-          </Link>
+            </Link>
+            <svg
+              width="1"
+              height="15"
+              viewBox="0 0 1 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0.25 0L0.250001 15"
+                stroke="#D4D4D4"
+                strokeWidth="0.5"
+              />
+            </svg>
+            <a href={TOGETHER_LINK} target="_blank" rel="noreferrer">
+              <img src="/madeBy.png" className="h-[18px] min-w-[63px]" />
+            </a>
+          </div>
           <button
             className="p-1 cursor-pointer md:hidden"
             onClick={() => {

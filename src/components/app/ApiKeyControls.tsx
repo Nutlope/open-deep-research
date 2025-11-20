@@ -1,5 +1,6 @@
 "use client";
 
+import { TOGETHER_LINK } from "@/lib/utils";
 import React, {
   useEffect,
   useState,
@@ -141,7 +142,9 @@ export function ApiKeyControls() {
       <p className="text-xs font-light text-left">
         <span className="text-[#99a1af]">Don't have an API key? </span>
         <a
-          href="https://togetherai.link/"
+          href={TOGETHER_LINK}
+          target="_blank"
+          rel="noreferrer"
           className="text-[#6a7282] underline underline-offset-2"
         >
           Get one for free.

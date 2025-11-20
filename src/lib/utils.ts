@@ -86,3 +86,5 @@ export function slugifyFilename(str: string, maxLength = 24): string {
       .slice(0, maxLength) || "report"
   );
 }
+
+export const TOGETHER_LINK = "https://togetherai.link/";
