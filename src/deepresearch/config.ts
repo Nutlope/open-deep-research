@@ -10,11 +10,11 @@ import dedent from "dedent";
 // Model Selection
 // Specialized models for different stages of the research pipeline
 export const MODEL_CONFIG = {
-  planningModel: "Qwen/Qwen2.5-72B-Instruct-Turbo", // Used for research planning and evaluation // 32k context window
-  jsonModel: "Qwen/Qwen3-Next-80B-A3B-Instruct", // Used for structured data parsing
+  planningModel: "openai/gpt-oss-20b", // Used for research planning and evaluation // 128k context window
+  jsonModel: "Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8", // Used for structured data parsing
   summaryModel: "meta-llama/Llama-3.3-70B-Instruct-Turbo", // Used for web content summarization // 128k context window
   summaryModelLongPages: "meta-llama/Llama-4-Scout-17B-16E-Instruct", // Used for web content summarization of long pages
-  answerModel: "deepseek-ai/DeepSeek-V3", // Used for final answer synthesis
+  answerModel: "deepseek-ai/DeepSeek-V3.1", // Used for final answer synthesis
 };
 
 // Resource Allocation
@@ -181,7 +181,7 @@ ${REPLY_LANGUAGE}`),
     Extract the source list that should be included.`,
 
   // Answer Generation: Creates final research report
-  answerPrompt: dedent(`${getCurrentDateContext()}
+  academicAnswerPrompt: dedent(`${getCurrentDateContext()}
 You are a senior research analyst tasked with creating a professional, publication-ready report.
 Using **ONLY the provided sources**, produce a Markdown document (at least 5 pages) following these exact requirements:
 
@@ -303,6 +303,48 @@ Ensure inline citations use "[INLINE_CITATION](https://...)" formatting.
 Use at least **3 full paragraphs per section**. Avoid short sections or outline-like writing.
 Think like you're writing a **book chapter**, not an article — with deep reasoning, structured arguments, and fluent transitions.
 
+
+ ${REPLY_LANGUAGE}
+ `),
+
+  smartAnswerPrompt: dedent(`${getCurrentDateContext()}
+You are a helpful research assistant creating user-friendly reports that are easy to read and actionable.
+Using **ONLY the provided sources**, create a clear, well-structured Markdown report that answers the user's question directly.
+
+# CRITICAL: No Introduction or Preamble
+- **DO NOT** start with phrases like "Here is a report..." or "Based on the sources..."
+- **DO NOT** write any introductory paragraphs
+- **JUMP STRAIGHT INTO THE CONTENT** - start directly with the answer or main heading
+
+# Smart Report Guidelines
+
+## Structure
+- **Start immediately** with the main content or primary heading
+- **Use clear headings** and subheadings for organization
+- **Include practical information** like lists, tables, and key facts
+- **Keep it concise** but comprehensive
+- **End with actionable insights**
+
+## Key Requirements
+- **Be user-friendly**: Write conversationally, like explaining to a friend
+- **Include citations**: Use "[Source](url)" format for important claims
+- **Use bullet points and lists** when helpful for clarity
+- **Highlight key takeaways** with bold text or clear summaries
+- **Focus on what matters**: Prioritize actionable information over academic analysis
+
+## Format
+- Use **bold** for important terms and key findings
+- Use *italics* for emphasis
+- Create tables for comparisons
+- Use numbered lists for steps or rankings
+- Keep paragraphs short and readable
+
+## Content Focus
+- Answer the specific question asked immediately
+- Include relevant details, prices, locations, recommendations
+- Compare options when applicable
+- Provide context and background when needed
+- Suggest next steps or related information
 
 ${REPLY_LANGUAGE}
 `),
