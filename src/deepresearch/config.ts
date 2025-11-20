@@ -353,6 +353,15 @@ Using **ONLY the provided sources**, create a clear, well-structured Markdown re
 - Provide specific recommendations and tips
 - End with concrete next steps and booking advice
 
+## Location Data Generation (for Maps)
+- **Generate structured location data**: Create a special section with location information in a specific format
+- **Use custom format**: Include locations using: MAP_LOCATION:name|address|lat,lng|description|url
+- **Multiple locations**: Add multiple location entries as needed
+- **Place anywhere in report**: Can be placed strategically within the content or at the end
+- **Example format**:
+  MAP_LOCATION:Le Bernardin|155 W 51st St, New York, NY|40.7614,-73.9855|3 Michelin-starred seafood restaurant|https://le-bernardin.com
+  MAP_LOCATION:Nobu Fifty Seven|40 W 57th St, New York, NY|40.7639,-73.9767|Upscale Japanese-Peruvian fusion|https://noburestaurants.com
+
 ## Closing Section
 - **Be specific and helpful**: Include booking tips, best times to visit, price ranges
 - **Provide actionable advice**: How to book, what to expect, travel tips

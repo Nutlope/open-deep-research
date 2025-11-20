@@ -45,6 +45,7 @@
     "next": "16.0.3",
     "next-plausible": "^3.12.5",
     "puppeteer-core": "^24.10.0",
+    "radar-sdk-js": "^4.5.8",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-icons": "^5.5.0",
