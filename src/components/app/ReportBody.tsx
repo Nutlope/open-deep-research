@@ -21,7 +21,7 @@ export const ReportBody = ({
       title: string;
       citation: string;
     }> | null;
-    outputType?: "academic" | "smart";
+    outputType?: "academic" | "smart" | null;
   };
 }) => {
   if (!researchData || !researchData.report) {
