@@ -1,4 +1,3 @@
-
 import { exa } from "./apiClients";
 
 import { SearchResult } from "./schemas";
@@ -13,10 +12,10 @@ export const searchOnWeb = async ({
   query: string;
 }): Promise<SearchResults> => {
   // Use Exa search with contents
-  const searchResponse = await exa.searchAndContents(query, {
+  const searchResponse = await exa.search(query, {
+    moderation: true,
+    contents: { text: true, livecrawl: "fallback" },
     numResults: 5,
-    text: true,
-    livecrawlTimeout: 15000,
   });
 
   const webResults = searchResponse.results;
@@ -27,10 +26,7 @@ export const searchOnWeb = async ({
     ?.map((result) => ({
       title: result.title ?? "",
       link: result.url,
-      content: stripUrlsFromMarkdown(result.text ?? "").substring(
-        0,
-        80_000
-      ),
+      content: stripUrlsFromMarkdown(result.text ?? "").substring(0, 80_000),
     }))
     ?.filter((result) => result.content !== "");
 
