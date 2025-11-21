@@ -379,6 +379,6 @@ Requirements:
 
 Output only the Flux-ready prompt—no explanations.`,
 
-  planSummaryPrompt: `${getCurrentDateContext()}
-You are a research assistant. Given a detailed research plan, summarize it in one short, plain sentence anyone can understand. Be brief and clear.`,
+  planSummaryPrompt: dedent(`${getCurrentDateContext()}
+You are a research assistant. Given a detailed research plan, summarize it in one short, plain sentence anyone can understand. Be brief and clear.`),
 };

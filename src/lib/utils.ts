@@ -89,6 +89,16 @@ export function slugifyFilename(str: string, maxLength = 24): string {
 
 export const TOGETHER_LINK = "https://togetherai.link/";
 
+// Compress prompt by removing extra whitespace
+export function compressPrompt(prompt: string): string {
+  return prompt
+    .split('\n')
+    .map(line => line.trim())
+    .filter(line => line.length > 0)
+    .join(' ')
+    .replace(/\s+/g, ' ');
+}
+
 // Helper to parse slug from URL
 export function parseSlugFromUrl(url: string): string {
   try {
