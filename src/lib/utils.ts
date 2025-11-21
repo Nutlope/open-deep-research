@@ -86,3 +86,27 @@ export function slugifyFilename(str: string, maxLength = 24): string {
       .slice(0, maxLength) || "report"
   );
 }
+
+export const TOGETHER_LINK = "https://togetherai.link/";
+
+// Compress prompt by removing extra whitespace
+export function compressPrompt(prompt: string): string {
+  return prompt
+    .split('\n')
+    .map(line => line.trim())
+    .filter(line => line.length > 0)
+    .join(' ')
+    .replace(/\s+/g, ' ');
+}
+
+// Helper to parse slug from URL
+export function parseSlugFromUrl(url: string): string {
+  try {
+    const urlObj = new URL(url);
+    const pathname = urlObj.pathname;
+    const slug = pathname.split("/").pop() || "";
+    return slug.replace(/-/g, " ").replace(/_/g, " ");
+  } catch {
+    return "";
+  }
+}

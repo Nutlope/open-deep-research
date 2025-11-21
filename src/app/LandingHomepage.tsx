@@ -72,6 +72,7 @@ export const LandingHomepage = () => {
               createResearchAndRedirect({
                 clerkUserId: isSignedIn ? user.id : undefined,
                 initialUserMessage: message.content,
+                outputType: message.outputType,
               });
             }}
           />

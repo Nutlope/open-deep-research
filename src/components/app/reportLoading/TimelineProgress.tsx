@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import { ResearchEventStreamEvents } from "@/app/api/research/route";
 import { TimelineEvent } from "./TimelineEvent";
 import { TimelineEventLoader } from "./TimelineEventLoader";
-import { cleanMarkdownToText } from "@/lib/utils";
+import { cleanMarkdownToText, parseSlugFromUrl } from "@/lib/utils";
 
 export default function TimelineProgress({
   events,
@@ -104,13 +104,13 @@ export default function TimelineProgress({
                         <TimelineEvent
                           type={event.type}
                           isLast={false}
-                          title="Research Plan"
+                          title="Research strategy"
                           description={cleanMarkdownToText(event.plan)}
                         />
                         <TimelineEvent
                           type={event.type}
                           isLast={isLast}
-                          title="Generated Search Queries"
+                          title="Search queries ready"
                           queries={event.queries}
                         />
                       </Fragment>
@@ -137,14 +137,16 @@ export default function TimelineProgress({
                             url: url,
                             title: mapOfUrlsToContentProcessing.has(url)
                               ? mapOfUrlsToContentProcessing.get(url)?.title ||
+                                parseSlugFromUrl(url) ||
                                 ""
-                              : "Loading...",
+                              : "Analyzing content...",
                           };
                         })}
                       />
                     );
 
                   case "content_summarized":
+                    if (!event.title) return;
                     return (
                       <TimelineEvent
                         key={index}
@@ -169,7 +171,7 @@ export default function TimelineProgress({
                         <TimelineEvent
                           type={event.type}
                           isLast={false}
-                          title="Evaluation Complete"
+                          title="Analysis complete"
                           description={
                             cleanMarkdownToText(event.reasoning)?.slice(
                               0,
@@ -181,7 +183,7 @@ export default function TimelineProgress({
                           key={index}
                           type={event.type}
                           isLast={isLast}
-                          title="Additional Search Queries"
+                          title="Planning next steps"
                           queries={event.additionalQueries}
                         />
                       </Fragment>

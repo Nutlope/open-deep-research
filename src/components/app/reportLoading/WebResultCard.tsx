@@ -1,5 +1,5 @@
 import { FaviconImage } from "@/components/FaviconImage";
-import { getDomainFromUrl } from "@/lib/utils";
+import { getDomainFromUrl, parseSlugFromUrl } from "@/lib/utils";
 import React from "react";
 
 export const WebResultCard = ({
@@ -24,7 +24,7 @@ export const WebResultCard = ({
         <div className="flex flex-row gap-2">
           {children}
           <p className="max-w-full truncate text-xs text-left text-[#4a5565]">
-            {result.title}
+            {result.title || parseSlugFromUrl(result.url)}
           </p>
         </div>
         <div className="flex justify-start items-center  relative gap-1">

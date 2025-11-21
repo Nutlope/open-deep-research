@@ -5,6 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { TOGETHER_LINK } from "@/lib/utils";
 import { intervalToDuration, formatDuration } from "date-fns";
 
 export const TooltipUsage = ({
@@ -59,7 +60,7 @@ export const TooltipUsage = ({
             <span className="">
               Enter your{" "}
               <a
-                href="https://togetherai.link/"
+                href={TOGETHER_LINK}
                 target="_blank"
                 rel="noreferrer"
                 className="underline"

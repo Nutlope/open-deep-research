@@ -34,7 +34,25 @@ export const FinalReportPage = ({
             </p>
           </div>
         </button>
-        <DownloadPdfButton fileName={researchData.researchTopic ?? undefined} />
+         <button
+           onClick={() => {
+             // copy report to markdown
+             toast.success("Copied markdown to clipboard!");
+             navigator.clipboard.writeText(researchData.report || "");
+           }}
+           className="cursor-pointer flex flex-col justify-center items-center overflow-hidden gap-2.5 px-3 py-1.5 rounded border-[0.5px] border-[#cad5e2]"
+           style={{ filter: "drop-shadow(0px 1px 5px rgba(0,0,0,0.15))" }}
+         >
+           <div className="flex justify-start items-center self-stretch relative gap-1.5">
+             <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+             </svg>
+             <p className="flex-grow-0 flex-shrink-0 text-sm text-left text-[#62748e]">
+               Copy Markdown
+             </p>
+           </div>
+         </button>
+         <DownloadPdfButton fileName={researchData.researchTopic ?? undefined} />
       </div>
 
       <div className="print:block hidden text-lg text-zinc-400 leading-5 mx-auto text-center mb-5">

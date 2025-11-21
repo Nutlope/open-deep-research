@@ -5,7 +5,7 @@ import { useUser } from "@clerk/nextjs";
 
 export const Header = () => {
   const { toggleSidebar } = useSidebar();
-  const { isSignedIn, user, isLoaded } = useUser();
+  const { isSignedIn, isLoaded } = useUser();
 
   const isUserLoggedIn = isLoaded && isSignedIn;
 
@@ -25,17 +25,15 @@ export const Header = () => {
               </button>
             )}
             <Link className="flex flex-row items-center gap-2" href="/">
-              <div className="flex flex-row items-center gap-2">
+              <div className="flex flex-row items-center gap-1">
                 <div className=" text-zinc-800 dark:text-zinc-100">
-                  <img
-                    src="/logo.svg"
-                    alt="Open Deep Research"
-                    className="size-6"
-                  />
+                  <img src="/logo.svg" alt="" className="size-6" />
                 </div>
-                <div className="text-lg font-bold text-zinc-800 dark:text-zinc-100">
-                  Open Deep Research
-                </div>
+                <img
+                  src="/logoText.svg"
+                  alt="Open Deep Research"
+                  className="h-[15px] w-auto"
+                />
               </div>
             </Link>
           </div>

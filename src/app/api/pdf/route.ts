@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
   );
 
   // Return the PDF as a Blob to avoid ByteString errors and ensure correct filename
-  return new NextResponse(new Blob([pdf]), { status: 200, headers });
+  return new NextResponse(new Blob([pdf as any]), { status: 200, headers });
 }
 
 export async function GET(req: NextRequest) {

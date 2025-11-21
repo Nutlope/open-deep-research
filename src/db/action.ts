@@ -9,15 +9,18 @@ import { startResearch } from "@/deepresearch/startResearch";
 export const createResearch = async ({
   clerkUserId,
   initialUserMessage,
+  outputType = "smart",
 }: {
   clerkUserId?: string;
   initialUserMessage: string;
+  outputType?: "academic" | "smart";
 }) => {
   const [result] = await db
     .insert(research)
     .values({
       clerkUserId,
       initialUserMessage,
+      outputType,
     })
     .returning();
   return result.id;
@@ -44,13 +47,16 @@ export const deleteResearch = async (chatId: string) => {
 export async function createResearchAndRedirect({
   clerkUserId,
   initialUserMessage,
+  outputType = "smart",
 }: {
   clerkUserId?: string;
   initialUserMessage: string;
+  outputType?: "academic" | "smart";
 }) {
   const id = await createResearch({
     clerkUserId,
     initialUserMessage,
+    outputType,
   });
   redirect(`/chat/${id}`);
 }

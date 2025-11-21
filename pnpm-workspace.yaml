@@ -1,3 +1,5 @@
 onlyBuiltDependencies:
   - '@clerk/shared'
+  - esbuild
+  - lzo
   - sharp

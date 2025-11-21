@@ -1,6 +1,6 @@
 import { createTogetherAI } from "@ai-sdk/togetherai";
 import Together from "together-ai";
-import FirecrawlApp from "@mendable/firecrawl-js";
+import Exa from "exa-js";
 
 const APP_NAME_HELICONE = "deepresearch";
 
@@ -54,6 +54,4 @@ if (process.env.HELICONE_API_KEY) {
 
 export const togetherai = new Together(options);
 
-export const firecrawl = new FirecrawlApp({
-  apiKey: process.env.FIRECRAWL_API_KEY,
-});
+export const exa = new Exa(process.env.EXA_API_KEY ?? "");

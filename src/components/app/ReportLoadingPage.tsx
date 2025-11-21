@@ -24,27 +24,27 @@ export const ReportLoadingPage = ({
   const [steps, setSteps] = useState<ReportStepType[]>([
     {
       id: "initial_planning",
-      title: "Initial Planning",
+      title: "Initial planning",
       status: "loading",
     },
     {
       id: "iteration_1",
-      title: "Iteration #1",
+      title: "Gathering sources",
       status: "pending",
     },
     {
       id: "iteration_2",
-      title: "Iteration #2",
+      title: "Analyzing information",
       status: "pending",
     },
     {
       id: "iteration_3",
-      title: "Iteration #3",
+      title: "Refining insights",
       status: "pending",
     },
     {
       id: "writing_report",
-      title: "Writing Report",
+      title: "Writing your report",
       status: "pending",
     },
   ]);
