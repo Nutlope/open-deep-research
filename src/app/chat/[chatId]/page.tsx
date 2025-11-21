@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import { getResearch } from "@/db/action";
 import { redirect } from "next/navigation";
 import { generateObject, generateText } from "ai";
-import { MODEL_CONFIG, PROMPTS } from "@/deepresearch/config";
+import { MODEL_CONFIG, PROMPTS, REPLY_LANGUAGE } from "@/deepresearch/config";
 import dedent from "dedent";
 import { togetheraiClient } from "@/deepresearch/apiClients";
 import z from "zod";
@@ -63,7 +63,9 @@ export default async function Page(props: {
   }
 
   if (!researchData.questions) {
-    const questionsText = await generateText({
+    // Use a single generateObject call with a faster model for better performance
+    const startTime = Date.now();
+    const result = await generateObject({
       system: dedent(PROMPTS.clarificationPrompt),
       messages: [
         {
@@ -71,32 +73,29 @@ export default async function Page(props: {
           content: researchData.initialUserMessage,
         },
       ],
-      model: togetheraiClient(MODEL_CONFIG.planningModel),
-    });
-
-    const result = await generateObject({
-      system: dedent(PROMPTS.clarificationParsingPrompt),
-      model: togetheraiClient(MODEL_CONFIG.jsonModel),
-      messages: [
-        {
-          role: "user",
-          content: questionsText.text,
-        },
-      ],
+      model: togetheraiClient(MODEL_CONFIG.jsonModel), // Faster model
       schema: z.object({
-        questions: z.array(z.string()),
+        research_title: z.string(),
+        clarifying_questions: z.array(z.string()),
       }),
-      maxRetries: 3,
+      maxRetries: 2,
     });
+    const endTime = Date.now();
+    const durationSeconds = (endTime - startTime) / 1000;
+    console.log(
+      `Question generation took ${durationSeconds.toFixed(2)} seconds`
+    );
 
     await db
       .update(research)
       .set({
-        questions: result.object.questions,
+        title: result.object.research_title,
+        questions: result.object.clarifying_questions,
       })
       .where(eq(research.id, researchData.id));
 
-    researchData.questions = result.object.questions;
+    researchData.title = result.object.research_title;
+    researchData.questions = result.object.clarifying_questions;
   }
 
   return <ChatPage chatId={chatId} researchData={researchData} />;

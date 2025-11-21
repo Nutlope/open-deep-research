@@ -11,7 +11,7 @@ import dedent from "dedent";
 // Specialized models for different stages of the research pipeline
 export const MODEL_CONFIG = {
   planningModel: "openai/gpt-oss-20b", // Used for research planning and evaluation // 128k context window
-  jsonModel: "Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8", // Used for structured data parsing
+  jsonModel: "Qwen/Qwen3-Next-80B-A3B-Thinking", // Used for structured data parsing
   summaryModel: "meta-llama/Llama-3.3-70B-Instruct-Turbo", // Used for web content summarization // 128k context window
   summaryModelLongPages: "meta-llama/Llama-4-Scout-17B-16E-Instruct", // Used for web content summarization of long pages
   answerModel: "deepseek-ai/DeepSeek-V3.1", // Used for final answer synthesis
@@ -62,13 +62,17 @@ export const PROMPTS = {
   clarificationPrompt:
     dedent(`You are an AI research assistant. Your goal is to help users conduct deep research on topics by asking clarifying questions.
 
-When a user provides a research topic, generate up to 3 concise bullet-point questions to clarify their needs. Focus on:
+When a user provides a research topic, generate a research title and up to 3 concise clarifying questions. Focus on:
 
 * Specific aspect or angle?
 * Purpose or context?
 * Any constraints (e.g. location, budget, timing)?
 
-Keep your questions short, relevant, and directly related to the topic provided. Do not provide answers or additional commentary—just the questions.
+Output a JSON object with exactly these keys:
+- "research_title": a string with the research title
+- "clarifying_questions": an array of strings with the questions
+
+Keep your questions short, relevant, and directly related to the topic provided. Do not provide answers or additional commentary.
 
 ${REPLY_LANGUAGE}
 `),
