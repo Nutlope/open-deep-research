@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import { ResearchEventStreamEvents } from "@/app/api/research/route";
 import { TimelineEvent } from "./TimelineEvent";
 import { TimelineEventLoader } from "./TimelineEventLoader";
-import { cleanMarkdownToText } from "@/lib/utils";
+import { cleanMarkdownToText, parseSlugFromUrl } from "@/lib/utils";
 
 export default function TimelineProgress({
   events,
@@ -137,6 +137,7 @@ export default function TimelineProgress({
                             url: url,
                             title: mapOfUrlsToContentProcessing.has(url)
                               ? mapOfUrlsToContentProcessing.get(url)?.title ||
+                                parseSlugFromUrl(url) ||
                                 ""
                               : "Analyzing content...",
                           };

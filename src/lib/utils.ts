@@ -88,3 +88,15 @@ export function slugifyFilename(str: string, maxLength = 24): string {
 }
 
 export const TOGETHER_LINK = "https://togetherai.link/";
+
+// Helper to parse slug from URL
+export function parseSlugFromUrl(url: string): string {
+  try {
+    const urlObj = new URL(url);
+    const pathname = urlObj.pathname;
+    const slug = pathname.split("/").pop() || "";
+    return slug.replace(/-/g, " ").replace(/_/g, " ");
+  } catch {
+    return "";
+  }
+}

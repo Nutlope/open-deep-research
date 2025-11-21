@@ -78,6 +78,13 @@ export const ChatInput = ({
         onChange={(event) => {
           setInput(event.currentTarget.value);
         }}
+        onPaste={(event) => {
+          event.preventDefault();
+          const pastedText = event.clipboardData.getData('text');
+          const normalized = pastedText.trim().replace(/\s+/g, ' ');
+          const newValue = input.slice(0, textareaRef.current?.selectionStart || input.length) + normalized + input.slice(textareaRef.current?.selectionEnd || input.length);
+          setInput(newValue);
+        }}
         onKeyDown={(event) => {
           if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault();
@@ -86,17 +93,17 @@ export const ChatInput = ({
               return;
             }
 
-            append({
-              role: "user",
-              content: input.trimEnd(),
-              createdAt: new Date(),
-              outputType,
-            });
+             append({
+               role: "user",
+               content: input.trim().replace(/\s+/g, ' '),
+               createdAt: new Date(),
+               outputType,
+             });
 
-            setInput("");
-            if (typeof window !== "undefined") {
-              localStorage.removeItem("chatInput");
-            }
+             setInput("");
+             if (typeof window !== "undefined") {
+               localStorage.removeItem("chatInput");
+             }
           }
         }}
       />
@@ -144,7 +151,7 @@ export const ChatInput = ({
 
             append({
               role: "user",
-              content: input.trimEnd(),
+              content: input.trim().replace(/\s+/g, ' '),
               createdAt: new Date(),
               outputType,
             });

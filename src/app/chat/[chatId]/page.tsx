@@ -70,7 +70,7 @@ export default async function Page(props: {
       messages: [
         {
           role: "user",
-          content: researchData.initialUserMessage,
+          content: researchData.initialUserMessage.trim(),
         },
       ],
       model: togetheraiClient(MODEL_CONFIG.jsonModel), // Faster model

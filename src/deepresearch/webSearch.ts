@@ -1,3 +1,4 @@
+import { parseSlugFromUrl } from "@/lib/utils";
 import { exa } from "./apiClients";
 
 import { SearchResult } from "./schemas";
@@ -24,7 +25,7 @@ export const searchOnWeb = async ({
   const results = webResults
     .filter((result) => result.text && result.text.length > 0) // Only include results with content
     ?.map((result) => ({
-      title: result.title ?? "",
+      title: result.title ?? parseSlugFromUrl(result.url) ?? "",
       link: result.url,
       content: stripUrlsFromMarkdown(result.text ?? "").substring(0, 80_000),
     }))
