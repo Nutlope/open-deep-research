@@ -36,8 +36,8 @@ const summarizeContent = async ({
 }): Promise<string> => {
   console.log(`📝 Summarizing content from URL: ${result.link}`);
 
-  // Use a higher threshold for very long content (around 128K characters)
-  const isContentVeryLong = result.content.length > 100000;
+  // Use a higher threshold for very long content (around 262k characters)
+  const isContentVeryLong = result.content.length > 200000;
 
   const model = isContentVeryLong
     ? togetheraiClientWithKey(togetherApiKey || "")(

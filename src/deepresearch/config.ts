@@ -11,10 +11,10 @@ import dedent from "dedent";
 // Specialized models for different stages of the research pipeline
 export const MODEL_CONFIG = {
   planningModel: "openai/gpt-oss-20b", // Used for research planning and evaluation // 128k context window
-  jsonModel: "Qwen/Qwen3-Next-80B-A3B-Thinking", // Used for structured data parsing
-  summaryModel: "meta-llama/Llama-3.3-70B-Instruct-Turbo", // Used for web content summarization // 128k context window
+  jsonModel: "Qwen/Qwen3-Next-80B-A3B-Instruct", // Used for structured data parsing
+  summaryModel: "Qwen/Qwen3-Next-80B-A3B-Instruct", // Used for web content summarization // 262k context window
   summaryModelLongPages: "meta-llama/Llama-4-Scout-17B-16E-Instruct", // Used for web content summarization of long pages
-  answerModel: "deepseek-ai/DeepSeek-V3.1", // Used for final answer synthesis
+  answerModel: "deepseek-ai/DeepSeek-V3.1", // Used for final answer synthesis // Kimi k2 - GLM 4.6
 };
 
 // Resource Allocation
