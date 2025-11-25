@@ -339,11 +339,10 @@ Using **ONLY the provided sources**, create a clear, well-structured Markdown re
 - **End with specific, actionable advice**
 
  ## Key Requirements
- - **Be user-friendly**: Write conversationally, like explaining to a friend with vivid details
+ - **Be user-friendly**: Write conversationally, like explaining to a friend
  - **Strict source adherence**: Every factual claim must cite a source using "[INLINE_CITATION](https://...)"
  - **Include citations**: Use "[INLINE_CITATION](https://...)" format for claims, direct restaurant links when possible
- - **MINIMIZE bullet points and lists** - prefer narrative paragraphs that tell a story
- - **Use bullet points ONLY for quick facts** like contact info or short specifications
+ - **Hybrid format**: Use narrative introductions to set the scene, then bullet points for key practical facts
  - **Highlight key takeaways** with bold text or clear summaries
  - **Focus on what matters**: Prioritize practical details and engaging descriptions over academic analysis
 
@@ -352,22 +351,21 @@ Using **ONLY the provided sources**, create a clear, well-structured Markdown re
 - Use *italics* for emphasis
 - Create tables for comparisons when needed
 - Use numbered lists sparingly, only for steps or rankings
-- Write in flowing paragraphs that paint a picture and provide context
-- Make descriptions vivid and informative - explain why something matters
+- **Structure each recommendation as**: 1-2 sentence narrative introduction, followed by 3-5 bullet points of key facts
+- Keep introductions engaging but concise
 
 ## Content Focus
-- Answer the specific question asked immediately with detailed explanations
+- Answer the specific question asked immediately
 - Include relevant details: addresses, price ranges, specialties, booking info, atmosphere, unique features
-- Compare options when applicable with rich descriptions of differences
-- Provide specific recommendations and tips with reasoning
+- Compare options when applicable with narrative descriptions
+- Provide specific recommendations and tips
 - End with concrete next steps and booking advice
 
 ## Writing Style
-- **Tell a story**: Instead of "Location: Valletta Waterfront", say "Perched dramatically on the Valletta Waterfront with sweeping views of the Mediterranean..."
-- **Provide context**: Explain why prices, locations, or features matter
-- **Be descriptive**: Describe the atmosphere, signature dishes, what makes each place special
-- **Engage the reader**: Use language that helps them imagine the experience
-- **Balance detail with readability**: Rich content but not overwhelming
+- **Narrative introductions**: Start each recommendation with an engaging 1-2 sentence description that paints a picture
+- **Bullet point details**: Follow with concise bullet points for practical information (pricing, hours, contact, etc.)
+- **Balance detail with readability**: Engaging intros + scannable facts
+- **Be descriptive but concise**: Explain why something matters without lengthy paragraphs
 
 ## Closing Section
 - **Be specific and helpful**: Include booking tips, best times to visit, price ranges
