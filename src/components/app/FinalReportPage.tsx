@@ -16,18 +16,18 @@ export const FinalReportPage = ({
   }
 
   return (
-    <div className="flex flex-col size-full pt-20 md:pt-5 mx-auto max-w-[886px] px-5">
+    <div className="flex flex-col size-full pt-0 md:pt-5 mx-auto max-w-[886px] px-5">
       <div className="flex flex-row gap-2 xl:px-4 items-start justify-center md:justify-end print:hidden mb-5">
-         <button
-           onClick={() => {
-             const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-             if (isMobile && navigator.share) {
-               navigator.share({ url: window.location.href });
-             } else {
-               navigator.clipboard.writeText(window.location.href);
-               toast.success("Copied to clipboard!");
-             }
-           }}
+        <button
+          onClick={() => {
+            const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+            if (isMobile && navigator.share) {
+              navigator.share({ url: window.location.href });
+            } else {
+              navigator.clipboard.writeText(window.location.href);
+              toast.success("Copied to clipboard!");
+            }
+          }}
           className="cursor-pointer flex flex-col justify-center items-center overflow-hidden gap-2.5 px-3 py-1.5 rounded border-[0.5px] border-[#cad5e2]"
           style={{ filter: "drop-shadow(0px 1px 5px rgba(0,0,0,0.15))" }}
         >
@@ -44,7 +44,7 @@ export const FinalReportPage = ({
             toast.success("Copied markdown to clipboard!");
             navigator.clipboard.writeText(researchData.report || "");
           }}
-          className="cursor-pointer flex flex-col justify-center items-center overflow-hidden gap-2.5 px-3 py-1.5 rounded border-[0.5px] border-[#cad5e2]"
+          className="cursor-pointer hidden md:flex flex-col justify-center items-center overflow-hidden gap-2.5 px-3 py-1.5 rounded border-[0.5px] border-[#cad5e2]"
           style={{ filter: "drop-shadow(0px 1px 5px rgba(0,0,0,0.15))" }}
         >
           <div className="flex justify-start items-center self-stretch relative gap-1.5">

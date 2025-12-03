@@ -36,7 +36,7 @@ export const ReportBody = ({
              alt=""
            />
            {researchData.outputType && (
-             <div className={cn("absolute top-2 left-2 w-[26px] h-[26px] rounded flex items-center justify-center", researchData.outputType === "academic" ? "bg-[#1e3539]" : "bg-[#391e36]")} style={{boxShadow: '0 0 2px rgba(255,255,255,0.8)'}}>
+              <div title={researchData.outputType === "academic" ? "Academic" : "Smart"} className={cn("absolute top-2 left-2 w-[26px] h-[26px] rounded flex items-center justify-center", researchData.outputType === "academic" ? "bg-[#1e3539]" : "bg-[#391e36]")} style={{boxShadow: '0 0 2px rgba(255,255,255,0.8)'}}>
                {researchData.outputType === "academic" ? (
                  <svg
                    width={16}

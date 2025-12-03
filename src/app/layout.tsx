@@ -39,7 +39,7 @@ export default function RootLayout({
             </head>
             <body
               className={cn(
-                `${figtree.variable} flex min-h-full flex-col antialiased mt-[120px] md:mt-0`
+                `${figtree.variable} flex min-h-full flex-col antialiased mt-[80px] md:mt-0`
               )}
             >
               <Header />
