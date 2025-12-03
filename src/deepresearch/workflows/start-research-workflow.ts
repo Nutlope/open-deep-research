@@ -281,7 +281,7 @@ export const startResearchWorkflow = createWorkflow<
 
       const generatedImage = await togetheraiWithKey(
         togetherApiKey || ""
-      ).images.create({
+      ).images.generate({
         prompt: imageGenerationPrompt.text,
         model: "black-forest-labs/FLUX.1-dev",
         width: 1024,
