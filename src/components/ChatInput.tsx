@@ -82,7 +82,7 @@ export const ChatInput = ({
           event.preventDefault();
           const pastedText = event.clipboardData.getData('text');
           const normalized = pastedText.trim().replace(/\s+/g, ' ');
-          const newValue = input.slice(0, textareaRef.current?.selectionStart || input.length) + normalized + input.slice(textareaRef.current?.selectionEnd || input.length);
+           const newValue = input.slice(0, textareaRef.current?.selectionStart ?? input.length) + normalized + input.slice(textareaRef.current?.selectionEnd ?? input.length);
           setInput(newValue);
         }}
         onKeyDown={(event) => {
