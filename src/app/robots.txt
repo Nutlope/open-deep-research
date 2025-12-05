@@ -1,0 +1,6 @@
+# Allow all user agents
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.opendeepresearch.dev/sitemap.xml
