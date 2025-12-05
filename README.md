@@ -17,6 +17,7 @@
 - **Drizzle ORM** and **Neon** for database management
 - **Amazon S3** for secure image storage
 - **Upstash QStash/Redis** for workflow orchestration and state
+- **Exa** for scraping webpages
 - **Vercel** for seamless deployment and hosting
 
 ## How it works

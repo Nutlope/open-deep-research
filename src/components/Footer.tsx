@@ -9,10 +9,10 @@ export const Footer = () => {
           <a
             target="_blank"
             rel="noreferrer"
-            href="https://www.together.ai/models/deepseek-v3"
+            href="https://www.together.ai/models/deepseek-v3-1"
             className="font-semibold hover:text-[#072d77] transition"
           >
-            DeepSeek V3
+            DeepSeek V3.1
           </a>{" "}
           on{" "}
           <a

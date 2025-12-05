@@ -1,5 +1,5 @@
-import { SearchData, SearchResultWeb } from "@mendable/firecrawl-js";
-import { firecrawl } from "./apiClients";
+import { parseSlugFromUrl } from "@/lib/utils";
+import { exa } from "./apiClients";
 
 import { SearchResult } from "./schemas";
 
@@ -12,32 +12,22 @@ export const searchOnWeb = async ({
 }: {
   query: string;
 }): Promise<SearchResults> => {
-  // Use Firecrawl search with scraping
-  const searchResponse = (await firecrawl.search(query, {
-    limit: 5,
-    sources: ["web"] as const,
-    scrapeOptions: {
-      formats: ["markdown"],
-      timeout: 15000,
-      // 48 hours - 2 days
-      maxAge: 48 * 60 * 60 * 1000,
-    },
-  })) as SearchData;
+  // Use Exa search with contents
+  const searchResponse = await exa.search(query, {
+    moderation: true,
+    contents: { text: true, livecrawl: "fallback" },
+    numResults: 5,
+  });
 
-  const webResults = searchResponse?.web as (SearchResultWeb & {
-    markdown?: string;
-  })[];
+  const webResults = searchResponse.results;
 
   // Process the results
   const results = webResults
-    .filter((result) => result.markdown && result.markdown.length > 0) // Only include results with content
+    .filter((result) => result.text && result.text.length > 0) // Only include results with content
     ?.map((result) => ({
-      title: result.title ?? "",
+      title: result.title ?? parseSlugFromUrl(result.url) ?? "",
       link: result.url,
-      content: stripUrlsFromMarkdown(result.markdown ?? "").substring(
-        0,
-        80_000
-      ),
+      content: stripUrlsFromMarkdown(result.text ?? "").substring(0, 80_000),
     }))
     ?.filter((result) => result.content !== "");
 

@@ -10,11 +10,11 @@ import dedent from "dedent";
 // Model Selection
 // Specialized models for different stages of the research pipeline
 export const MODEL_CONFIG = {
-  planningModel: "Qwen/Qwen2.5-72B-Instruct-Turbo", // Used for research planning and evaluation // 32k context window
+  planningModel: "openai/gpt-oss-20b", // Used for research planning and evaluation // 128k context window
   jsonModel: "Qwen/Qwen3-Next-80B-A3B-Instruct", // Used for structured data parsing
-  summaryModel: "meta-llama/Llama-3.3-70B-Instruct-Turbo", // Used for web content summarization // 128k context window
+  summaryModel: "Qwen/Qwen3-Next-80B-A3B-Instruct", // Used for web content summarization // 262k context window
   summaryModelLongPages: "meta-llama/Llama-4-Scout-17B-16E-Instruct", // Used for web content summarization of long pages
-  answerModel: "deepseek-ai/DeepSeek-V3", // Used for final answer synthesis
+  answerModel: "deepseek-ai/DeepSeek-V3.1", // Used for final answer synthesis // Kimi k2 - GLM 4.6
 };
 
 // Resource Allocation
@@ -62,13 +62,17 @@ export const PROMPTS = {
   clarificationPrompt:
     dedent(`You are an AI research assistant. Your goal is to help users conduct deep research on topics by asking clarifying questions.
 
-When a user provides a research topic, generate up to 3 concise bullet-point questions to clarify their needs. Focus on:
+When a user provides a research topic, generate a research title and up to 3 concise clarifying questions. Focus on:
 
 * Specific aspect or angle?
 * Purpose or context?
 * Any constraints (e.g. location, budget, timing)?
 
-Keep your questions short, relevant, and directly related to the topic provided. Do not provide answers or additional commentary—just the questions.
+Output a JSON object with exactly these keys:
+- "research_title": a string with the research title
+- "clarifying_questions": an array of strings with the questions
+
+Keep your questions short, relevant, and directly related to the topic provided. Do not provide answers or additional commentary.
 
 ${REPLY_LANGUAGE}
 `),
@@ -181,7 +185,7 @@ ${REPLY_LANGUAGE}`),
     Extract the source list that should be included.`,
 
   // Answer Generation: Creates final research report
-  answerPrompt: dedent(`${getCurrentDateContext()}
+  academicAnswerPrompt: dedent(`${getCurrentDateContext()}
 You are a senior research analyst tasked with creating a professional, publication-ready report.
 Using **ONLY the provided sources**, produce a Markdown document (at least 5 pages) following these exact requirements:
 
@@ -304,6 +308,70 @@ Use at least **3 full paragraphs per section**. Avoid short sections or outline-
 Think like you're writing a **book chapter**, not an article — with deep reasoning, structured arguments, and fluent transitions.
 
 
+ ${REPLY_LANGUAGE}
+ `),
+
+  smartAnswerPrompt: dedent(`${getCurrentDateContext()}
+You are a helpful research assistant creating user-friendly reports that are engaging, detailed, and actionable.
+Using **ONLY the provided sources**, create a clear, well-structured Markdown report that answers the user's question directly with rich, narrative content.
+
+# CRITICAL: No Introduction or Preamble
+- **DO NOT** start with ANY introductory text like "Here is a report..." or "Based on the sources..."
+- **DO NOT** write ANY introductory paragraphs
+- **JUMP STRAIGHT INTO THE CONTENT** - start directly with the main heading or answer
+- **NO** meta-commentary about the report structure
+
+ # Citation Requirements
+ - **MUST include inline citations** in the format "[INLINE_CITATION](https://...)" after every key claim or data point
+ - **Never make factual statements without providing the corresponding citation**
+ - **PRIORITIZE DIRECT WEBSITES**: Link to actual restaurant websites when available
+ - **AVOID LISTICLES**: Don't link to generic "best restaurants" articles if direct sites exist
+ - **USE PROPER FORMAT**: [Restaurant Name](direct-website-url) for restaurant links
+ - **SOURCE CITATIONS**: Use [Source](article-url) for information sources
+
+# Smart Report Guidelines
+
+## Structure
+- **Start immediately** with the main heading (no intro text)
+- **Use clear headings** and subheadings for organization
+- **Include practical information** like addresses, price ranges, specialties
+- **Be detailed and comprehensive** - provide rich descriptions and context
+- **End with specific, actionable advice**
+
+ ## Key Requirements
+ - **Be user-friendly**: Write conversationally, like explaining to a friend
+ - **Strict source adherence**: Every factual claim must cite a source using "[INLINE_CITATION](https://...)"
+ - **Include citations**: Use "[INLINE_CITATION](https://...)" format for claims, direct restaurant links when possible
+ - **Hybrid format**: Use narrative introductions to set the scene, then bullet points for key practical facts
+ - **Highlight key takeaways** with bold text or clear summaries
+ - **Focus on what matters**: Prioritize practical details and engaging descriptions over academic analysis
+
+## Format
+- Use **bold** for important terms and key findings
+- Use *italics* for emphasis
+- Create tables for comparisons when needed
+- Use numbered lists sparingly, only for steps or rankings
+- **Structure each recommendation as**: 1-2 sentence narrative introduction, followed by 3-5 bullet points of key facts
+- Keep introductions engaging but concise
+
+## Content Focus
+- Answer the specific question asked immediately
+- Include relevant details: addresses, price ranges, specialties, booking info, atmosphere, unique features
+- Compare options when applicable with narrative descriptions
+- Provide specific recommendations and tips
+- End with concrete next steps and booking advice
+
+## Writing Style
+- **Narrative introductions**: Start each recommendation with an engaging 1-2 sentence description that paints a picture
+- **Bullet point details**: Follow with concise bullet points for practical information (pricing, hours, contact, etc.)
+- **Balance detail with readability**: Engaging intros + scannable facts
+- **Be descriptive but concise**: Explain why something matters without lengthy paragraphs
+
+## Closing Section
+- **Be specific and helpful**: Include booking tips, best times to visit, price ranges
+- **Provide actionable advice**: How to book, what to expect, travel tips
+- **Avoid generic endings**: No "Bon appétit" or generic sign-offs
+
 ${REPLY_LANGUAGE}
 `),
 
@@ -318,6 +386,6 @@ Requirements:
 
 Output only the Flux-ready prompt—no explanations.`,
 
-  planSummaryPrompt: `${getCurrentDateContext()}
-You are a research assistant. Given a detailed research plan, summarize it in one short, plain sentence anyone can understand. Be brief and clear.`,
+  planSummaryPrompt: dedent(`${getCurrentDateContext()}
+You are a research assistant. Given a detailed research plan, summarize it in one short, plain sentence anyone can understand. Be brief and clear.`),
 };

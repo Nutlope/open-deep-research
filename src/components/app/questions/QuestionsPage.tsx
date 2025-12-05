@@ -22,10 +22,14 @@ export const QuestionsPage = ({
   );
   const [remainingResearches, setRemainingResearches] = useState(0);
   const [resetTime, setResetTime] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const { userId } = useAuth();
   const router = useRouter();
 
   const onSaveAnswers = async (answersToSave: string[]) => {
+    if (isLoading) return; // Prevent multiple clicks
+
+    setIsLoading(true);
     try {
       const response = await fetch("/api/storeAnswers", {
         method: "POST",
@@ -46,10 +50,12 @@ export const QuestionsPage = ({
         router.refresh();
       } else {
         toast.error(data.message || "Failed to process your request.");
+        setIsLoading(false); // Re-enable buttons on error
       }
     } catch (error) {
       console.error("Error processing request:", error);
       toast.error("An unexpected error occurred.");
+      setIsLoading(false); // Re-enable buttons on error
     }
   };
 
@@ -135,7 +141,7 @@ export const QuestionsPage = ({
               });
             }}
             onEnter={() => {
-              if (index === questions.length - 1 && userId) {
+              if (index === questions.length - 1 && userId && !isLoading) {
                 onSaveAnswers(answers);
               }
             }}
@@ -149,9 +155,9 @@ export const QuestionsPage = ({
           onClick={() => {
             onSaveAnswers([]); // Pass an empty array to skip questions
           }}
-          disabled={remainingResearches <= 0}
+          disabled={remainingResearches <= 0 || isLoading}
         >
-          Skip
+          {isLoading ? "Processing..." : "Skip"}
         </button>
 
         <div className="flex flex-col gap-2 w-full md:w-fit">
@@ -162,11 +168,11 @@ export const QuestionsPage = ({
                 onSaveAnswers(answers);
               }
             }}
-            disabled={remainingResearches <= 0}
+            disabled={remainingResearches <= 0 || isLoading}
           >
             <div className="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-1.5">
               <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-white">
-                Generate Report
+                {isLoading ? "Generating..." : "Generate Report"}
               </p>
             </div>
           </button>

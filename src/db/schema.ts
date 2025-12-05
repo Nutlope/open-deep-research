@@ -18,6 +18,8 @@ export const deepresearchStautsEnum = pgEnum("status", [
   "completed",
 ]);
 
+export const outputTypeEnum = pgEnum("output_type", ["academic", "smart"]);
+
 export const research = pgTable("chats", {
   id: varchar()
     .primaryKey()
@@ -25,6 +27,7 @@ export const research = pgTable("chats", {
   clerkUserId: varchar(),
   // message prompt from the user in landing page
   initialUserMessage: varchar().notNull(),
+  outputType: outputTypeEnum(),
   // generated questions based on the user prompt
   questions: jsonb().$type<string[]>(),
   // answers given from the user or empty array if skipped

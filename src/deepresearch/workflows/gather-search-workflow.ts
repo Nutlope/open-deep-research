@@ -22,6 +22,7 @@ import {
   ErrorEvent,
 } from "../schemas";
 import { searchOnWeb } from "../webSearch";
+import dedent from "dedent";
 
 // Helper function to summarize content
 const summarizeContent = async ({
@@ -35,8 +36,8 @@ const summarizeContent = async ({
 }): Promise<string> => {
   console.log(`📝 Summarizing content from URL: ${result.link}`);
 
-  // Use a higher threshold for very long content (around 128K characters)
-  const isContentVeryLong = result.content.length > 100000;
+  // Use a higher threshold for very long content (around 262k characters)
+  const isContentVeryLong = result.content.length > 200000;
 
   const model = isContentVeryLong
     ? togetheraiClientWithKey(togetherApiKey || "")(
@@ -50,7 +51,9 @@ const summarizeContent = async ({
       { role: "system", content: PROMPTS.rawContentSummarizerPrompt },
       {
         role: "user",
-        content: `<Research Topic>${query}</Research Topic>\n\n<Raw Content>${result.content}</Raw Content>`,
+        content: dedent(
+          `<Research Topic>${query}</Research Topic>\n\n<Raw Content>${result.content}</Raw Content>`
+        ),
       },
     ],
   });

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn, TOGETHER_LINK } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
 
 export const LandingHero = () => {
@@ -23,7 +23,7 @@ export const LandingHero = () => {
   return (
     <>
       <a
-        href="https://togetherai.link/"
+        href={TOGETHER_LINK}
         target="_blank"
         rel="noreferrer"
         className="w-[180px] relative items-center justify-center rounded bg-gray-50 border border-gray-200 flex flex-row gap-1 px-4 py-2"

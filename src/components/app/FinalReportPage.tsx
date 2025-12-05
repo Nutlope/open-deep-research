@@ -16,21 +16,42 @@ export const FinalReportPage = ({
   }
 
   return (
-    <div className="flex flex-col size-full pt-20 md:pt-5 mx-auto max-w-[886px] px-5">
+    <div className="flex flex-col size-full pt-0 md:pt-5 mx-auto max-w-[886px] px-5">
       <div className="flex flex-row gap-2 xl:px-4 items-start justify-center md:justify-end print:hidden mb-5">
         <button
           onClick={() => {
-            // copy to clipboard
-            toast.success("Copied to clipboard!");
-            navigator.clipboard.writeText(window.location.href);
+            const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+            if (isMobile && navigator.share) {
+              navigator.share({ url: window.location.href });
+            } else {
+              navigator.clipboard.writeText(window.location.href);
+              toast.success("Copied to clipboard!");
+            }
           }}
           className="cursor-pointer flex flex-col justify-center items-center overflow-hidden gap-2.5 px-3 py-1.5 rounded border-[0.5px] border-[#cad5e2]"
           style={{ filter: "drop-shadow(0px 1px 5px rgba(0,0,0,0.15))" }}
         >
           <div className="flex justify-start items-center self-stretch relative gap-1.5">
             <img src="/share.svg" alt="" className="size-4" />
-            <p className="flex-grow-0 flex-shrink-0 text-sm text-left text-[#62748e]">
+            <p className="flex-grow-0 flex-shrink-0 text-sm text-left text-[#314158]">
               Share
+            </p>
+          </div>
+        </button>
+        <button
+          onClick={() => {
+            // copy report to markdown
+            toast.success("Copied markdown to clipboard!");
+            navigator.clipboard.writeText(researchData.report || "");
+          }}
+          className="cursor-pointer hidden md:flex flex-col justify-center items-center overflow-hidden gap-2.5 px-3 py-1.5 rounded border-[0.5px] border-[#cad5e2]"
+          style={{ filter: "drop-shadow(0px 1px 5px rgba(0,0,0,0.15))" }}
+        >
+          <div className="flex justify-start items-center self-stretch relative gap-1.5">
+            <img src="/copy.svg" alt="" className="size-4" />
+
+            <p className="flex-grow-0 flex-shrink text-sm text-left text-[#314158]">
+              Copy markdown
             </p>
           </div>
         </button>
