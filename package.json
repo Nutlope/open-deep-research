@@ -42,7 +42,7 @@
     "framer-motion": "^12.9.1",
     "lucide-react": "^0.554.0",
     "nanoid": "^5.1.6",
-    "next": "16.0.3",
+    "next": "16.0.7",
     "next-plausible": "^3.12.5",
     "puppeteer-core": "^24.10.0",
     "react": "^19.2.0",
