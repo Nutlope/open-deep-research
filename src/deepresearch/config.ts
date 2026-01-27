@@ -13,7 +13,7 @@ export const MODEL_CONFIG = {
   planningModel: "openai/gpt-oss-20b", // Used for research planning and evaluation // 128k context window
   jsonModel: "Qwen/Qwen3-Next-80B-A3B-Instruct", // Used for structured data parsing
   summaryModel: "Qwen/Qwen3-Next-80B-A3B-Instruct", // Used for web content summarization // 262k context window
-  summaryModelLongPages: "meta-llama/Llama-4-Scout-17B-16E-Instruct", // Used for web content summarization of long pages
+  summaryModelLongPages: "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8", // Used for web content summarization of long pages
   answerModel: "Qwen/Qwen3-235B-A22B-Instruct-2507-tput", // Used for final answer synthesis
 };
 
