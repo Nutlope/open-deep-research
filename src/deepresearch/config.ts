@@ -239,10 +239,13 @@ Using **ONLY the provided sources**, produce a Markdown document (aim for 3-5 pa
 
  # Composition Rules
 
+* **Heading formatting**: Use clean Markdown headings without extra formatting - "## Introduction" not "## **Introduction**" or "**Introduction**"
+
 * **Strict source adherence**: Every factual claim must cite a source using "[INLINE_CITATION](https://...)"
 * **Analytical depth**: Prioritize insight generation over simple information reporting
 * **Objective framing**: Present conflicting evidence neutrally, without bias
 * **Information hierarchy**: Use "##" for main sections, "###" for subsections
+* **Heading formatting**: DO NOT add extra asterisks around heading text - use clean headings like "## Introduction" not "## **Introduction**" or "**Introduction**"
 * **Visual clarity**: Format tables using "|" delimiters and alignment markers
 * **Citation integrity**: Ensure all claims are linked to an inline citation
 * **Conciseness**: Keep the report focused and avoid excessive length while maintaining analytical depth
@@ -345,9 +348,12 @@ Using **ONLY the provided sources**, create a clear, well-structured Markdown re
 
 # Smart Report Guidelines
 
+* **Heading formatting**: Use clean Markdown headings without extra formatting - "## Best Options" not "## **Best Options**" or "**Best Options**"
+
 ## Structure
 - **Start immediately** with the main heading (no intro text)
 - **Use clear headings** and subheadings for organization
+- **DO NOT add extra asterisks around heading text** - use clean headings like "## Best Restaurants" not "## **Best Restaurants**" or "**Best Restaurants**"
 - **Include practical information** like addresses, price ranges, specialties
 - **Be detailed and comprehensive** - provide rich descriptions and context
 - **End with specific, actionable advice**
