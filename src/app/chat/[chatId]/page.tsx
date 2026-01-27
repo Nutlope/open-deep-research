@@ -31,7 +31,7 @@ export async function generateMetadata({
     return redirect("/");
   }
 
-  const topic = researchData.title || researchData.initialUserMessage;
+  const topic = (researchData.title || researchData.initialUserMessage)?.replace(/\*\*(.*?)\*\*/g, '$1');
 
   const title = `${topic} | Open Deep Research`;
   const description = `Discover the research on "${topic}" generated using ${
@@ -89,7 +89,7 @@ export default async function Page(props: {
     await db
       .update(research)
       .set({
-        title: result.object.research_title,
+        title: result.object.research_title.replace(/\*\*(.*?)\*\*/g, '$1'),
         questions: result.object.clarifying_questions,
       })
       .where(eq(research.id, researchData.id));

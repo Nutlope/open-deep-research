@@ -10,6 +10,12 @@ export async function GET() {
   }
 
   const chats = await getChats(userId);
+  
+  // Clean titles by removing markdown bold markers for backward compatibility
+  const cleanedChats = chats.map(chat => ({
+    ...chat,
+    title: chat.title ? chat.title.replace(/\*\*(.*?)\*\*/g, '$1') : chat.title
+  }));
 
-  return NextResponse.json(chats);
+  return NextResponse.json(cleanedChats);
 }
