@@ -73,6 +73,7 @@ export const LandingHomepage = () => {
                 clerkUserId: isSignedIn ? user.id : undefined,
                 initialUserMessage: message.content,
                 outputType: message.outputType,
+                model: message.model,
               });
             }}
           />

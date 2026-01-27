@@ -17,6 +17,19 @@ export const MODEL_CONFIG = {
   answerModel: "Qwen/Qwen3-235B-A22B-Instruct-2507-tput", // Used for final answer synthesis
 };
 
+// Add a function to get model config based on selected model
+export const getModelConfig = (selectedModel?: string) => {
+  if (!selectedModel) {
+    return MODEL_CONFIG;
+  }
+
+  // Map selected model to answer model while keeping other models the same
+  return {
+    ...MODEL_CONFIG,
+    answerModel: selectedModel,
+  };
+};
+
 // Resource Allocation
 // Parameters controlling research depth and breadth
 export const RESEARCH_CONFIG = {
@@ -187,7 +200,7 @@ ${REPLY_LANGUAGE}`),
   // Answer Generation: Creates final research report
   academicAnswerPrompt: dedent(`${getCurrentDateContext()}
 You are a senior research analyst tasked with creating a professional, publication-ready report.
-Using **ONLY the provided sources**, produce a Markdown document (at least 5 pages) following these exact requirements:
+Using **ONLY the provided sources**, produce a Markdown document (aim for 3-5 pages) following these exact requirements:
 
 ---
 
@@ -224,7 +237,7 @@ Using **ONLY the provided sources**, produce a Markdown document (at least 5 pag
 
 ---
 
-# Composition Rules
+ # Composition Rules
 
 * **Strict source adherence**: Every factual claim must cite a source using "[INLINE_CITATION](https://...)"
 * **Analytical depth**: Prioritize insight generation over simple information reporting
@@ -232,6 +245,7 @@ Using **ONLY the provided sources**, produce a Markdown document (at least 5 pag
 * **Information hierarchy**: Use "##" for main sections, "###" for subsections
 * **Visual clarity**: Format tables using "|" delimiters and alignment markers
 * **Citation integrity**: Ensure all claims are linked to an inline citation
+* **Conciseness**: Keep the report focused and avoid excessive length while maintaining analytical depth
 
 ---
 
@@ -304,8 +318,8 @@ Using **ONLY the provided sources**, produce a Markdown document (at least 5 pag
 
 **Before writing**, analyze how the sources relate.
 Ensure inline citations use "[INLINE_CITATION](https://...)" formatting.
-Use at least **3 full paragraphs per section**. Avoid short sections or outline-like writing.
-Think like you're writing a **book chapter**, not an article — with deep reasoning, structured arguments, and fluent transitions.
+Use at least **2-3 full paragraphs per section**. Avoid short sections or outline-like writing.
+Think like you're writing a **detailed article**, not a lengthy book chapter — with deep reasoning, structured arguments, and fluent transitions while keeping concise.
 
 
  ${REPLY_LANGUAGE}
@@ -338,13 +352,14 @@ Using **ONLY the provided sources**, create a clear, well-structured Markdown re
 - **Be detailed and comprehensive** - provide rich descriptions and context
 - **End with specific, actionable advice**
 
- ## Key Requirements
- - **Be user-friendly**: Write conversationally, like explaining to a friend
- - **Strict source adherence**: Every factual claim must cite a source using "[INLINE_CITATION](https://...)"
- - **Include citations**: Use "[INLINE_CITATION](https://...)" format for claims, direct restaurant links when possible
- - **Hybrid format**: Use narrative introductions to set the scene, then bullet points for key practical facts
- - **Highlight key takeaways** with bold text or clear summaries
- - **Focus on what matters**: Prioritize practical details and engaging descriptions over academic analysis
+## Key Requirements
+  - **Be user-friendly**: Write conversationally, like explaining to a friend
+  - **Strict source adherence**: Every factual claim must cite a source using "[INLINE_CITATION](https://...)"
+  - **Include citations**: Use "[INLINE_CITATION](https://...)" format for claims, direct restaurant links when possible
+  - **Hybrid format**: Use narrative introductions to set the scene, then bullet points for key practical facts
+  - **Highlight key takeaways** with bold text or clear summaries
+  - **Focus on what matters**: Prioritize practical details and engaging descriptions over academic analysis
+  - **Conciseness**: Avoid excessive length; be detailed but focused on essential information
 
 ## Format
 - Use **bold** for important terms and key findings
@@ -360,12 +375,13 @@ Using **ONLY the provided sources**, create a clear, well-structured Markdown re
 - Compare options when applicable with narrative descriptions
 - Provide specific recommendations and tips
 - End with concrete next steps and booking advice
+- Keep sections focused; avoid unnecessary elaboration
 
 ## Writing Style
 - **Narrative introductions**: Start each recommendation with an engaging 1-2 sentence description that paints a picture
 - **Bullet point details**: Follow with concise bullet points for practical information (pricing, hours, contact, etc.)
 - **Balance detail with readability**: Engaging intros + scannable facts
-- **Be descriptive but concise**: Explain why something matters without lengthy paragraphs
+- **Be descriptive but concise**: Explain why something matters without lengthy paragraphs; prioritize brevity
 
 ## Closing Section
 - **Be specific and helpful**: Include booking tips, best times to visit, price ranges

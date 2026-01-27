@@ -10,10 +10,12 @@ export const createResearch = async ({
   clerkUserId,
   initialUserMessage,
   outputType = "smart",
+  model,
 }: {
   clerkUserId?: string;
   initialUserMessage: string;
   outputType?: "academic" | "smart";
+  model?: string;
 }) => {
   const [result] = await db
     .insert(research)
@@ -21,6 +23,7 @@ export const createResearch = async ({
       clerkUserId,
       initialUserMessage,
       outputType,
+      model,
     })
     .returning();
   return result.id;
@@ -48,15 +51,18 @@ export async function createResearchAndRedirect({
   clerkUserId,
   initialUserMessage,
   outputType = "smart",
+  model,
 }: {
   clerkUserId?: string;
   initialUserMessage: string;
   outputType?: "academic" | "smart";
+  model?: string;
 }) {
   const id = await createResearch({
     clerkUserId,
     initialUserMessage,
     outputType,
+    model,
   });
   redirect(`/chat/${id}`);
 }

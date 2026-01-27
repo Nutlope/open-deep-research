@@ -42,6 +42,7 @@ export type StartResearchPayload = {
   sessionId: string;
   togetherApiKey?: string;
   outputType?: "academic" | "smart";
+  model?: string;
 };
 
 // Helper function to generate research queries
@@ -109,12 +110,14 @@ const generateResearchAnswer = async ({
   sessionId,
   togetherApiKey,
   outputType = "smart",
+  model,
 }: {
   topic: string;
   results: SearchResult[];
   sessionId: string;
   togetherApiKey?: string;
   outputType?: "academic" | "smart";
+  model?: string;
 }): Promise<string> => {
   const formattedSearchResults = results
     .map(
@@ -125,9 +128,12 @@ const generateResearchAnswer = async ({
 
   let fullReport = "";
 
+  // Use the provided model if available, otherwise use the default answer model
+  const answerModel = model || MODEL_CONFIG.answerModel;
+
   const { textStream } = await streamText({
     model: togetheraiClientWithKey(togetherApiKey || "")(
-      MODEL_CONFIG.answerModel
+      answerModel
     ),
     messages: [
       { role: "system", content: outputType === "academic" ? PROMPTS.academicAnswerPrompt : PROMPTS.smartAnswerPrompt },
@@ -161,7 +167,7 @@ export const startResearchWorkflow = createWorkflow<
   StartResearchPayload,
   string
 >(async (context: WorkflowContext<StartResearchPayload>) => {
-  const { topic, sessionId, togetherApiKey, outputType } = context.requestPayload;
+  const { topic, sessionId, togetherApiKey, outputType, model } = context.requestPayload;
 
   // Step 1: Generate initial research plan using LLM
   const initialQueries = await context.run(
@@ -351,6 +357,7 @@ export const startResearchWorkflow = createWorkflow<
         sessionId,
         togetherApiKey,
         outputType,
+        model,
       });
 
       // Emit report generated event

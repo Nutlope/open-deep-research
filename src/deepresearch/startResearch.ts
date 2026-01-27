@@ -64,6 +64,7 @@ export const startResearch = async ({
     sessionId: chatId,
     togetherApiKey: personalTogetherApiKey,
     outputType: researchData.outputType ?? undefined,
+    model: researchData.model ?? undefined,
   };
 
   // generate researchTopic by joining strings with:initialUserMessage + questions+answers the complete researchTopic to use in the research

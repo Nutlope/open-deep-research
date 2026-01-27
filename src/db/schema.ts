@@ -28,6 +28,7 @@ export const research = pgTable("chats", {
   // message prompt from the user in landing page
   initialUserMessage: varchar().notNull(),
   outputType: outputTypeEnum(),
+  model: varchar(), // selected model for research
   // generated questions based on the user prompt
   questions: jsonb().$type<string[]>(),
   // answers given from the user or empty array if skipped
