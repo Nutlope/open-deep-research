@@ -64,15 +64,26 @@ export function extractMarkdownHeadings(
   markdownText: string
 ): Array<{ level: number; text: string }> {
   if (!markdownText) return [];
-  const headingRegex = /^(#{1,3})\s+(.+)$/gm;
+  
+  // More robust regex that handles various markdown heading formats
+  // Matches headings like: # Heading, ## Heading, ### Heading
+  const headingRegex = /^(#{1,3})\s+(.+?)(?:\s*)$/gm;
   const headings: Array<{ level: number; text: string }> = [];
   let match;
+  
   while ((match = headingRegex.exec(markdownText)) !== null) {
     const level = match[1].length;
     if (level >= 1 && level <= 3) {
-      headings.push({ level, text: match[2].trim() });
+      // Clean the text by trimming whitespace and removing any trailing markdown artifacts
+      let text = match[2].trim();
+      // Remove any trailing hashes that might be part of the heading in some markdown formats
+      text = text.replace(/\s*#+\s*$/, '').trim();
+      // Remove markdown bold markers
+      text = text.replace(/\*\*(.*?)\*\*/g, '$1');
+      headings.push({ level, text });
     }
   }
+  
   return headings;
 }
 

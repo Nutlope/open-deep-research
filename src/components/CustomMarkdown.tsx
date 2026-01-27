@@ -87,12 +87,12 @@ const createMarkdownComponents = (
       </Link>
     );
   },
-  h1: ({ children, ...props }) => {
-    const text =
-      typeof children === "string"
-        ? children
-        : React.Children.toArray(children).join("");
-    const anchor = text
+h1: ({ children, ...props }) => {
+    // Simple approach: convert children to string for anchor generation
+    const textContent = String(children);
+    // Clean the text by removing markdown bold markers for the anchor
+    const cleanText = textContent.replace(/\*\*(.*?)\*\*/g, '$1');
+    const anchor = cleanText
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
@@ -107,11 +107,11 @@ const createMarkdownComponents = (
     );
   },
   h2: ({ children, ...props }) => {
-    const text =
-      typeof children === "string"
-        ? children
-        : React.Children.toArray(children).join("");
-    const anchor = text
+    // Simple approach: convert children to string for anchor generation
+    const textContent = String(children);
+    // Clean the text by removing markdown bold markers for the anchor
+    const cleanText = textContent.replace(/\*\*(.*?)\*\*/g, '$1');
+    const anchor = cleanText
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
@@ -125,12 +125,21 @@ const createMarkdownComponents = (
       </h2>
     );
   },
-  h3: ({ children, ...props }) => {
-    const text =
-      typeof children === "string"
-        ? children
-        : React.Children.toArray(children).join("");
-    const anchor = text
+h3: ({ children, ...props }) => {
+    // Extract text content for anchor generation by flattening React elements
+    const textContent = React.Children.toArray(children).map(child => {
+      if (typeof child === 'string') {
+        return child;
+      } else if (React.isValidElement(child)) {
+        // @ts-expect-error - accessing props of React element
+        return child.props.children || '';
+      }
+      return '';
+    }).join("");
+    
+    // Clean the text by removing markdown bold markers for the anchor
+    const cleanText = textContent.replace(/\*\*(.*?)\*\*/g, '$1');
+    const anchor = cleanText
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");

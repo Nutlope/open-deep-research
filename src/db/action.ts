@@ -40,7 +40,15 @@ export const getResearch = async (id: string) => {
     .from(research)
     .where(eq(research.id, id))
     .limit(1);
-  return result.length > 0 ? result[0] : null;
+  if (result.length > 0) {
+    // Clean the title by removing markdown bold markers for backward compatibility
+    const researchData = result[0];
+    if (researchData.title) {
+      researchData.title = researchData.title.replace(/\*\*(.*?)\*\*/g, '$1');
+    }
+    return researchData;
+  }
+  return null;
 };
 
 export const deleteResearch = async (chatId: string) => {
