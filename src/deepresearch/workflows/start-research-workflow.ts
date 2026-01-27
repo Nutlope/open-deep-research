@@ -403,7 +403,7 @@ export const startResearchWorkflow = createWorkflow<
         headings && headings.find((heading) => heading.level === 1);
 
       // Clean the title by removing markdown bold markers
-      const cleanTitle = headingOne?.text.replace(/\*\*(.*?)\*\*/g, '$1');
+      const cleanTitle = headingOne?.text?.replace(/\*\*(.*?)\*\*/g, "$1");
 
       await db
         .update(research)

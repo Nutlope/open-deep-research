@@ -12,6 +12,26 @@ interface CustomMarkdownProps {
   sources?: Array<{ url: string; title: string }>;
 }
 
+// Helper to extract plain text from heading children (handles nested React elements)
+const getHeadingText = (children: React.ReactNode): string => {
+  const textContent = React.Children.toArray(children)
+    .map((child) => {
+      if (typeof child === "string") {
+        return child;
+      } else if (React.isValidElement(child)) {
+        // @ts-expect-error - accessing props of React element
+        return child.props.children || "";
+      }
+      return "";
+    })
+    .join("");
+
+  // Clean the text by removing markdown bold markers
+  const cleanText = textContent.replace(/\*\*(.*?)\*\*/g, "$1");
+
+  return cleanText;
+};
+
 const createMarkdownComponents = (
   sources?: Array<{ url: string; title: string }>
 ): Partial<Components> => ({
@@ -87,12 +107,9 @@ const createMarkdownComponents = (
       </Link>
     );
   },
-h1: ({ children, ...props }) => {
-    // Simple approach: convert children to string for anchor generation
-    const textContent = String(children);
-    // Clean the text by removing markdown bold markers for the anchor
-    const cleanText = textContent.replace(/\*\*(.*?)\*\*/g, '$1');
-    const anchor = cleanText
+  h1: ({ children, ...props }) => {
+    const headingText = getHeadingText(children);
+    const anchor = headingText
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
@@ -107,11 +124,8 @@ h1: ({ children, ...props }) => {
     );
   },
   h2: ({ children, ...props }) => {
-    // Simple approach: convert children to string for anchor generation
-    const textContent = String(children);
-    // Clean the text by removing markdown bold markers for the anchor
-    const cleanText = textContent.replace(/\*\*(.*?)\*\*/g, '$1');
-    const anchor = cleanText
+    const headingText = getHeadingText(children);
+    const anchor = headingText
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
@@ -125,21 +139,9 @@ h1: ({ children, ...props }) => {
       </h2>
     );
   },
-h3: ({ children, ...props }) => {
-    // Extract text content for anchor generation by flattening React elements
-    const textContent = React.Children.toArray(children).map(child => {
-      if (typeof child === 'string') {
-        return child;
-      } else if (React.isValidElement(child)) {
-        // @ts-expect-error - accessing props of React element
-        return child.props.children || '';
-      }
-      return '';
-    }).join("");
-    
-    // Clean the text by removing markdown bold markers for the anchor
-    const cleanText = textContent.replace(/\*\*(.*?)\*\*/g, '$1');
-    const anchor = cleanText
+  h3: ({ children, ...props }) => {
+    const headingText = getHeadingText(children);
+    const anchor = headingText
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
