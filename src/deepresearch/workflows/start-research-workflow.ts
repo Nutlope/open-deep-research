@@ -402,13 +402,16 @@ export const startResearchWorkflow = createWorkflow<
       const headingOne =
         headings && headings.find((heading) => heading.level === 1);
 
+      // Clean the title by removing markdown bold markers
+      const cleanTitle = headingOne?.text.replace(/\*\*(.*?)\*\*/g, '$1');
+
       await db
         .update(research)
         .set({
           report: finalReport,
           coverUrl: coverImage,
           status: "completed",
-          title: headingOne?.text,
+          title: cleanTitle,
           completedAt: new Date(),
           sources: finalState.searchResults.map((result) => ({
             url: result.link,
