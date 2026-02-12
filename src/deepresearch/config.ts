@@ -17,6 +17,29 @@ export const MODEL_CONFIG = {
   answerModel: "Qwen/Qwen3-235B-A22B-Instruct-2507-tput", // Used for final answer synthesis
 };
 
+// Available models for final report generation (user-selectable)
+export const AVAILABLE_MODELS = [
+  // {
+  //   value: "moonshotai/Kimi-K2.5",
+  //   label: "Kimi K2.5",
+  // },
+  {
+    value: "Qwen/Qwen3-235B-A22B-Instruct-2507-tput",
+    label: "Qwen3",
+  },
+  {
+    value: "zai-org/GLM-4.7",
+    label: "GLM 4.7",
+  },
+  {
+    value: "moonshotai/Kimi-K2-Instruct",
+    label: "Kimi K2",
+  },
+] as const;
+
+// Default model for report generation
+export const DEFAULT_MODEL = AVAILABLE_MODELS[0].value;
+
 // Add a function to get model config based on selected model
 export const getModelConfig = (selectedModel?: string) => {
   if (!selectedModel) {

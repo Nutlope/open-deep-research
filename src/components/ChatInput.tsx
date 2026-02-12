@@ -1,9 +1,9 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import cn from "classnames";
-import { ArrowUpIcon, ChevronDownIcon } from "lucide-react";
-import { Switch } from "@/components/ui/switch";
+import { ArrowUpIcon } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { AVAILABLE_MODELS, DEFAULT_MODEL } from "@/deepresearch/config";
 
 export const ChatInput = ({
   append,
@@ -34,9 +34,9 @@ export const ChatInput = ({
   });
   const [selectedModel, setSelectedModel] = useState<string>(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("selectedModel") || "Qwen/Qwen3-235B-A22B-Instruct-2507-tput";
+      return localStorage.getItem("selectedModel") || DEFAULT_MODEL;
     }
-    return "Qwen/Qwen3-235B-A22B-Instruct-2507-tput";
+    return DEFAULT_MODEL;
   });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -175,28 +175,19 @@ export const ChatInput = ({
 
       <div className="absolute bottom-2.5 right-12 flex flex-row gap-2">
         <Select value={selectedModel} onValueChange={setSelectedModel}>
-          <SelectTrigger className="h-[26px] w-[90px] text-xs rounded border border-gray-200 bg-white hover:bg-gray-50 transition-colors focus:outline-none data-[placeholder]:text-[#6B7280]">
+          <SelectTrigger className="h-[26px] w-[95px] text-xs rounded border border-gray-200 bg-white hover:bg-gray-50 transition-colors focus:outline-none data-[placeholder]:text-[#6B7280]">
             <SelectValue placeholder="Model" className="text-[#6B7280] text-xs font-medium" />
           </SelectTrigger>
           <SelectContent className="rounded-md border border-gray-200 shadow-lg bg-white">
-            <SelectItem
-              value="Qwen/Qwen3-235B-A22B-Instruct-2507-tput"
-              className="cursor-pointer hover:bg-gray-50 py-1.5 pl-8 pr-2 text-sm rounded-sm focus:bg-accent focus:text-accent-foreground"
-            >
-              Qwen3
-            </SelectItem>
-            <SelectItem
-              value="zai-org/GLM-4.7"
-              className="cursor-pointer hover:bg-gray-50 py-1.5 pl-8 pr-2 text-sm rounded-sm focus:bg-accent focus:text-accent-foreground"
-            >
-              GLM 4.7
-            </SelectItem>
-            <SelectItem
-              value="moonshotai/Kimi-K2-Instruct"
-              className="cursor-pointer hover:bg-gray-50 py-1.5 pl-8 pr-2 text-sm rounded-sm focus:bg-accent focus:text-accent-foreground"
-            >
-              Kimi K2
-            </SelectItem>
+            {AVAILABLE_MODELS.map((model) => (
+              <SelectItem
+                key={model.value}
+                value={model.value}
+                className="cursor-pointer hover:bg-gray-50 py-1.5 pl-8 pr-2 text-sm rounded-sm focus:bg-accent focus:text-accent-foreground"
+              >
+                {model.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
