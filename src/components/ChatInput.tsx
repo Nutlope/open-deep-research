@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import cn from "classnames";
 import { ArrowUpIcon } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { AVAILABLE_MODELS, DEFAULT_MODEL } from "@/deepresearch/config";
+import { AVAILABLE_MODELS, DEFAULT_ANSWER_MODEL } from "@/deepresearch/config";
 
 export const ChatInput = ({
   append,
@@ -34,9 +34,9 @@ export const ChatInput = ({
   });
   const [selectedModel, setSelectedModel] = useState<string>(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("selectedModel") || DEFAULT_MODEL;
+      return localStorage.getItem("selectedModel") || DEFAULT_ANSWER_MODEL;
     }
-    return DEFAULT_MODEL;
+    return DEFAULT_ANSWER_MODEL;
   });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 

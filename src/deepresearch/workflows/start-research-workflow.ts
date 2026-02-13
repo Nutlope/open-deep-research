@@ -8,7 +8,12 @@ import { stateStorage, streamStorage } from "../storage";
 import { gatherSearchQueriesWorkflow } from "./gather-search-workflow";
 import { WorkflowContext } from "@upstash/workflow";
 import { generateText, generateObject, streamText } from "ai";
-import { MODEL_CONFIG, PROMPTS, RESEARCH_CONFIG } from "../config";
+import {
+  DEFAULT_ANSWER_MODEL,
+  MODEL_CONFIG,
+  PROMPTS,
+  RESEARCH_CONFIG,
+} from "../config";
 import {
   togetheraiClient,
   togetheraiClientWithKey,
@@ -48,7 +53,7 @@ export type StartResearchPayload = {
 // Helper function to generate research queries
 const generateResearchQueries = async (
   topic: string,
-  togetherApiKey?: string
+  togetherApiKey?: string,
 ): Promise<{
   queries: string[];
   plan: string;
@@ -56,7 +61,7 @@ const generateResearchQueries = async (
 }> => {
   const initialSearchEvaluation = await generateText({
     model: togetheraiClientWithKey(togetherApiKey || "")(
-      MODEL_CONFIG.planningModel
+      MODEL_CONFIG.planningModel,
     ),
     messages: [
       { role: "system", content: PROMPTS.planningPrompt },
@@ -68,7 +73,7 @@ const generateResearchQueries = async (
   const [parsedPlan, planSummary] = await Promise.all([
     generateObject({
       model: togetheraiClientWithKey(togetherApiKey || "")(
-        MODEL_CONFIG.jsonModel
+        MODEL_CONFIG.jsonModel,
       ),
       messages: [
         { role: "system", content: PROMPTS.planParsingPrompt },
@@ -78,7 +83,7 @@ const generateResearchQueries = async (
     }),
     generateText({
       model: togetheraiClientWithKey(togetherApiKey || "")(
-        MODEL_CONFIG.summaryModel
+        MODEL_CONFIG.summaryModel,
       ),
       messages: [
         { role: "system", content: PROMPTS.planSummaryPrompt },
@@ -89,8 +94,8 @@ const generateResearchQueries = async (
 
   console.log(
     `📋 Research queries generated: \n - ${parsedPlan.object.queries.join(
-      "\n - "
-    )}`
+      "\n - ",
+    )}`,
   );
 
   const dedupedQueries = Array.from(new Set(parsedPlan.object.queries));
@@ -122,21 +127,25 @@ const generateResearchAnswer = async ({
   const formattedSearchResults = results
     .map(
       (result) =>
-        `- Link: ${result.link}\nTitle: ${result.title}\nSummary: ${result.summary}\n\n`
+        `- Link: ${result.link}\nTitle: ${result.title}\nSummary: ${result.summary}\n\n`,
     )
     .join("\n");
 
   let fullReport = "";
 
   // Use the provided model if available, otherwise use the default answer model
-  const answerModel = model || MODEL_CONFIG.answerModel;
+  const answerModel = model || DEFAULT_ANSWER_MODEL;
 
   const { textStream } = await streamText({
-    model: togetheraiClientWithKey(togetherApiKey || "")(
-      answerModel
-    ),
+    model: togetheraiClientWithKey(togetherApiKey || "")(answerModel),
     messages: [
-      { role: "system", content: outputType === "academic" ? PROMPTS.academicAnswerPrompt : PROMPTS.smartAnswerPrompt },
+      {
+        role: "system",
+        content:
+          outputType === "academic"
+            ? PROMPTS.academicAnswerPrompt
+            : PROMPTS.smartAnswerPrompt,
+      },
       {
         role: "user",
         content: `Research Topic: ${topic}\n\nSearch Results:\n${formattedSearchResults}`,
@@ -167,14 +176,15 @@ export const startResearchWorkflow = createWorkflow<
   StartResearchPayload,
   string
 >(async (context: WorkflowContext<StartResearchPayload>) => {
-  const { topic, sessionId, togetherApiKey, outputType, model } = context.requestPayload;
+  const { topic, sessionId, togetherApiKey, outputType, model } =
+    context.requestPayload;
 
   // Step 1: Generate initial research plan using LLM
   const initialQueries = await context.run(
     "generate-initial-plan",
     async () => {
       console.log(
-        `🔍 Starting research for: ${topic} and Session ID: ${sessionId}`
+        `🔍 Starting research for: ${topic} and Session ID: ${sessionId}`,
       );
 
       const researchData = await getResearch(sessionId);
@@ -200,7 +210,7 @@ export const startResearchWorkflow = createWorkflow<
         // Generate queries using local LLM function
         const { queries, plan, summarisedPlan } = await generateResearchQueries(
           topic,
-          togetherApiKey
+          togetherApiKey,
         );
 
         // Emit queries generated event
@@ -238,7 +248,7 @@ export const startResearchWorkflow = createWorkflow<
         } satisfies ErrorEvent);
         throw error;
       }
-    }
+    },
   );
 
   // Step 2: Invoke the iterative search workflow
@@ -286,7 +296,7 @@ export const startResearchWorkflow = createWorkflow<
       });
 
       const generatedImage = await togetheraiWithKey(
-        togetherApiKey || ""
+        togetherApiKey || "",
       ).images.generate({
         prompt: imageGenerationPrompt.text,
         model: "black-forest-labs/FLUX.1-dev",
@@ -311,7 +321,7 @@ export const startResearchWorkflow = createWorkflow<
           Key: coverImageKey,
           Body: imageBuffer,
           ContentType: "image/jpeg",
-        })
+        }),
       );
 
       const imageUrl = `https://${process.env.S3_UPLOAD_BUCKET}.s3.${
@@ -348,7 +358,7 @@ export const startResearchWorkflow = createWorkflow<
       } satisfies ReportStartedEvent);
 
       console.log(
-        `📝 Generating report for ${finalState.searchResults.length} results`
+        `📝 Generating report for ${finalState.searchResults.length} results`,
       );
 
       const report = await generateResearchAnswer({
@@ -430,7 +440,7 @@ export const startResearchWorkflow = createWorkflow<
       } satisfies ResearchCompletedEvent);
 
       console.log(
-        `🎉 Research completed: ${finalState.allQueries.length} queries, ${finalState.searchResults.length} results, ${finalState.iteration} iterations`
+        `🎉 Research completed: ${finalState.allQueries.length} queries, ${finalState.searchResults.length} results, ${finalState.iteration} iterations`,
       );
     } catch (error) {
       // Emit error event

@@ -14,7 +14,6 @@ export const MODEL_CONFIG = {
   jsonModel: "Qwen/Qwen3-Next-80B-A3B-Instruct", // Used for structured data parsing
   summaryModel: "Qwen/Qwen3-Next-80B-A3B-Instruct", // Used for web content summarization // 262k context window
   summaryModelLongPages: "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8", // Used for web content summarization of long pages
-  answerModel: "Qwen/Qwen3-235B-A22B-Instruct-2507-tput", // Used for final answer synthesis
 };
 
 // Available models for final report generation (user-selectable)
@@ -42,12 +41,12 @@ export const AVAILABLE_MODELS = [
 ] as const;
 
 // Default model for report generation
-export const DEFAULT_MODEL = AVAILABLE_MODELS[0].value;
+export const DEFAULT_ANSWER_MODEL = AVAILABLE_MODELS[0].value;
 
 // Add a function to get model config based on selected model
 export const getModelConfig = (selectedModel?: string) => {
   if (!selectedModel) {
-    return MODEL_CONFIG;
+    return { MODEL_CONFIG, answerModel: DEFAULT_ANSWER_MODEL };
   }
 
   // Map selected model to answer model while keeping other models the same
