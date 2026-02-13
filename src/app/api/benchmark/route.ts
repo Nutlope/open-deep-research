@@ -11,12 +11,6 @@ import * as path from "path";
 
 import { AVAILABLE_MODELS } from "@/deepresearch/config";
 
-// Only test NEW models that weren't in previous benchmarks
-const NEW_MODELS = [
-  "zai-org/GLM-5.0",
-  "moonshotai/Kimi-K2.5",
-];
-
 async function fetchCompletedResearch() {
   const completedResearch = await db
     .select()
@@ -35,11 +29,17 @@ async function fetchCompletedResearch() {
   let searchResults: any[] = [];
   try {
     const researchState = await stateStorage.get(sessionId);
-    if (researchState && researchState.searchResults && researchState.searchResults.length > 0) {
+    if (
+      researchState &&
+      researchState.searchResults &&
+      researchState.searchResults.length > 0
+    ) {
       searchResults = researchState.searchResults;
     }
   } catch (error) {
-    console.log("Could not access Redis state, extracting from report citations");
+    console.log(
+      "Could not access Redis state, extracting from report citations",
+    );
   }
 
   if (searchResults.length === 0 && researchData.report) {
@@ -55,20 +55,29 @@ async function fetchCompletedResearch() {
       link: url,
       title: `Source ${index + 1}: ${new URL(url).hostname}`,
       summary: `Content extracted from ${url} for the research topic.`,
-      content: `Web content from ${url} that was scraped during the research process.`
+      content: `Web content from ${url} that was scraped during the research process.`,
     }));
   }
 
   return {
-    topic: researchData.researchTopic || researchData.initialUserMessage || "Unknown Topic",
+    topic:
+      researchData.researchTopic ||
+      researchData.initialUserMessage ||
+      "Unknown Topic",
     results: searchResults,
-    originalReport: researchData.report
+    originalReport: researchData.report,
   };
 }
 
-async function generateReportWithModel(topic: string, results: any[], model: string): Promise<string> {
+async function generateReportWithModel(
+  topic: string,
+  results: any[],
+  model: string,
+): Promise<string> {
   const formattedSearchResults = results
-    .map(r => `- Link: ${r.link}\nTitle: ${r.title}\nSummary: ${r.summary}\n\n`)
+    .map(
+      (r) => `- Link: ${r.link}\nTitle: ${r.title}\nSummary: ${r.summary}\n\n`,
+    )
     .join("\n");
 
   let fullReport = "";
@@ -92,37 +101,50 @@ async function generateReportWithModel(topic: string, results: any[], model: str
 }
 
 export async function POST(request: NextRequest) {
+  // Only allow benchmark in development/local environment
+  if (process.env.NODE_ENV === "production") {
+    return NextResponse.json(
+      { error: "Benchmark API is only available in development mode" },
+      { status: 403 },
+    );
+  }
+
   try {
     console.log("🧪 Starting model benchmark");
-    const body = await request.json().catch(() => ({ models: NEW_MODELS }));
-    const models = body.models || NEW_MODELS;
-    
+    const models = AVAILABLE_MODELS;
+
     const researchData = await fetchCompletedResearch();
     const { topic, results: searchResults, originalReport } = researchData;
 
     console.log(`📋 Topic: "${topic}"`);
     console.log(`📊 ${searchResults.length} sources extracted from citations`);
 
-    const benchmarkResults: { 
-      model: string; 
-      report: string; 
+    const benchmarkResults: {
+      model: string;
+      report: string;
       duration: number;
       tokensPerSecond: number;
     }[] = [];
 
     for (const model of models) {
-      console.log(`🚀 Testing: ${model}`);
+      console.log(`🚀 Testing: ${model.label}`);
       const startTime = Date.now();
 
       try {
-        const report = await generateReportWithModel(topic, searchResults, model);
+        const report = await generateReportWithModel(
+          topic,
+          searchResults,
+          model.value,
+        );
         const duration = Date.now() - startTime;
         const tokensPerSecond = Math.round(report.length / (duration / 1000));
 
-        console.log(`✅ ${model}: ${duration}ms, ${report.length} chars, ${tokensPerSecond} char/s`);
+        console.log(
+          `✅ ${model}: ${duration}ms, ${report.length} chars, ${tokensPerSecond} char/s`,
+        );
 
         benchmarkResults.push({
-          model,
+          model: model.value,
           report,
           duration,
           tokensPerSecond,
@@ -130,8 +152,8 @@ export async function POST(request: NextRequest) {
       } catch (error) {
         console.error(`❌ ${model} failed:`, error);
         benchmarkResults.push({
-          model,
-          report: `Error: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          model: model.value,
+          report: `Error: ${error instanceof Error ? error.message : "Unknown error"}`,
           duration: Date.now() - startTime,
           tokensPerSecond: 0,
         });
@@ -161,7 +183,11 @@ export async function POST(request: NextRequest) {
 
 ${result.report}
 `;
-      fs.writeFileSync(path.join(outputDir, `${timestamp}-${safeModelName}.md`), content, "utf-8");
+      fs.writeFileSync(
+        path.join(outputDir, `${timestamp}-${safeModelName}.md`),
+        content,
+        "utf-8",
+      );
     }
 
     // Save comparison summary
@@ -175,36 +201,42 @@ ${result.report}
 
 | Model | Duration (ms) | Report Length | Speed (chars/sec) |
 |-------|---------------|---------------|-------------------|
-${benchmarkResults.map(r => `| ${r.model} | ${r.duration} | ${r.report.length} | ${r.tokensPerSecond} |`).join("\n")}
+${benchmarkResults.map((r) => `| ${r.model} | ${r.duration} | ${r.report.length} | ${r.tokensPerSecond} |`).join("\n")}
 
 ## Models Tested
-${NEW_MODELS.map(m => `- ${m}`).join("\n")}
+${AVAILABLE_MODELS.map((m) => `- ${m}`).join("\n")}
 
 ---
 *Generated by Open Deep Research Benchmark*
 `;
 
-    fs.writeFileSync(path.join(outputDir, `${timestamp}-comparison.md`), summary, "utf-8");
+    fs.writeFileSync(
+      path.join(outputDir, `${timestamp}-comparison.md`),
+      summary,
+      "utf-8",
+    );
 
     return NextResponse.json({
       success: true,
       topic,
       sourceCount: searchResults.length,
-      results: benchmarkResults.map(r => ({
+      results: benchmarkResults.map((r) => ({
         model: r.model,
         duration: r.duration,
         reportLength: r.report.length,
-        speed: r.tokensPerSecond
+        speed: r.tokensPerSecond,
       })),
       outputDir,
-      timestamp
+      timestamp,
     });
-
   } catch (error) {
     console.error("Benchmark failed:", error);
     return NextResponse.json(
-      { success: false, error: error instanceof Error ? error.message : "Unknown error" },
-      { status: 500 }
+      {
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error",
+      },
+      { status: 500 },
     );
   }
 }
