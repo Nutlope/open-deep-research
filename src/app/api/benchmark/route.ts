@@ -140,7 +140,7 @@ export async function POST(request: NextRequest) {
         const tokensPerSecond = Math.round(report.length / (duration / 1000));
 
         console.log(
-          `✅ ${model}: ${duration}ms, ${report.length} chars, ${tokensPerSecond} char/s`,
+          `✅ ${model.label}: ${duration}ms, ${report.length} chars, ${tokensPerSecond} char/s`,
         );
 
         benchmarkResults.push({
