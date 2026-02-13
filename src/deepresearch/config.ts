@@ -20,6 +20,10 @@ export const MODEL_CONFIG = {
 // Available models for final report generation (user-selectable)
 export const AVAILABLE_MODELS = [
   {
+    value: "deepseek-ai/DeepSeek-V3.1",
+    label: "Deepseek V3.1",
+  },
+  {
     value: "moonshotai/Kimi-K2-Instruct",
     label: "Kimi K2",
   },
@@ -27,14 +31,14 @@ export const AVAILABLE_MODELS = [
     value: "Qwen/Qwen3-235B-A22B-Instruct-2507-tput",
     label: "Qwen3",
   },
-  // {
-  //   value: "zai-org/GLM-4.7",
-  //   label: "GLM 4.7",
-  // },
   {
-    value: "deepseek-ai/DeepSeek-V3.1",
-    label: "Deepseek V3.1",
+    value: "zai-org/GLM-4.7",
+    label: "GLM 4.7",
   },
+  // {
+  //   value: "moonshotai/Kimi-K2.5",
+  //   label: "Kimi K2.5",
+  // },
 ] as const;
 
 // Default model for report generation
