@@ -30,18 +30,10 @@ export const AVAILABLE_MODELS = [
     value: "Qwen/Qwen3-235B-A22B-Instruct-2507-tput",
     label: "Qwen3",
   },
-  // {
-  //   value: "zai-org/GLM-4.7",
-  //   label: "GLM 4.7",
-  // },
-  // {
-  //   value: "moonshotai/Kimi-K2.5",
-  //   label: "Kimi K2.5",
-  // },
-  // {
-  //   value: "zai-org/GLM-5",
-  //   label: "GLM 5",
-  // },
+  {
+    value: "zai-org/GLM-4.7",
+    label: "GLM 4.7",
+  },
 ] as const;
 
 // Default model for report generation
