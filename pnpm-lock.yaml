@@ -135,8 +135,8 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
       together-ai:
-        specifier: ^0.32.0
-        version: 0.32.0
+        specifier: ^0.37.0
+        version: 0.37.0
       zod:
         specifier: ^4.3.6
         version: 4.3.6
@@ -3108,8 +3108,8 @@ packages:
     resolution: {integrity: sha512-nt6AMGKW1p/70DF/hGBdJB57B8Tspmbp5gfJ8ilhLnt7kkr2ye7hzD6NVG8GGErk2HWF34igrL2CXmNIkzKqKw==}
     engines: {node: '>=18'}
 
-  together-ai@0.32.0:
-    resolution: {integrity: sha512-BcTH+5kPozs1k9Y/IfbH+a40hUeqhIgpJJsxAz47pVUVf+NhnwE2f5R4IYTyToTiic1fRmhJPSWtEs5wZZKWYw==}
+  together-ai@0.37.0:
+    resolution: {integrity: sha512-UiZY8HrDkl86naJcY5Q48WOKdmwNf5X5yzGoZU4G58iZM6v/e7bBLLilEr5OcYVQ0RgyjpiHTkaAA0k4yNZU9Q==}
     hasBin: true
 
   tr46@0.0.3:
@@ -6609,7 +6609,7 @@ snapshots:
 
   throttleit@2.1.0: {}
 
-  together-ai@0.32.0: {}
+  together-ai@0.37.0: {}
 
   tr46@0.0.3: {}
 

@@ -295,6 +295,8 @@ export const startResearchWorkflow = createWorkflow<
         timestamp: Date.now(),
       });
 
+      if (!togetherApiKey) return undefined;
+
       const generatedImage = await togetheraiWithKey(
         togetherApiKey || "",
       ).images.generate({
