@@ -63,32 +63,32 @@ export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({
         isAnimating={isStreaming}
         components={{
           p: ({ children }) => (
-            <p className="text-base font-light text-left text-[#0f172b] leading-6 pb-4">
+            <p className="text-base font-light text-left text-[#0f172b] leading-7 mb-3">
               {children}
             </p>
           ),
-          hr: () => <hr className="pb-4" />,
+          hr: () => <hr className="my-4 border-border" />,
           pre: ({ children }) => <>{children}</>,
           img: (props) => {
-            return <img className="max-w-full rounded-lg" {...props} />;
+            return <img className="max-w-full rounded-lg my-4" {...props} />;
           },
           ol: ({ children, ...props }) => {
             return (
-              <ol className="list-decimal list-outside ml-4" {...props}>
+              <ol className="list-decimal list-outside ml-4 my-2" {...props}>
                 {children}
               </ol>
             );
           },
           li: ({ children, ...props }) => {
             return (
-              <li className="py-1" {...props}>
+              <li className="py-0.5 leading-7" {...props}>
                 {children}
               </li>
             );
           },
           ul: ({ children, ...props }) => {
             return (
-              <ul className="list-decimal list-outside ml-4" {...props}>
+              <ul className="list-disc list-outside ml-4 my-2" {...props}>
                 {children}
               </ul>
             );
@@ -135,7 +135,7 @@ export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({
             return (
               <h1
                 id={anchor}
-                className="text-[28px] md:text-[40px] font-medium text-left text-[#0f172b] mb-2 leading-[48px]"
+                className="text-[28px] md:text-[40px] font-medium text-left text-[#0f172b] mb-2 mt-4 leading-[48px]"
                 {...props}
               >
                 {children}
@@ -151,7 +151,7 @@ export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({
             return (
               <h2
                 id={anchor}
-                className="text-2xl md:text-[28px] text-left font-medium text-[#0f172b] mb-2 "
+                className="text-2xl md:text-[28px] text-left font-medium text-[#0f172b] mb-2 mt-4"
                 {...props}
               >
                 {children}
@@ -167,7 +167,7 @@ export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({
             return (
               <h3
                 id={anchor}
-                className="text-[18px] md:text-xl text-left text-[#0f172b] mb-2"
+                className="text-[18px] md:text-xl text-left text-[#0f172b] mb-1.5 mt-3"
                 {...props}
               >
                 {children}
@@ -176,30 +176,30 @@ export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({
           },
           h4: ({ children, ...props }) => {
             return (
-              <h4 className="text-lg text-left text-[#0f172b] mb-2" {...props}>
+              <h4 className="text-lg text-left text-[#0f172b] mb-1.5 mt-3" {...props}>
                 {children}
               </h4>
             );
           },
           h5: ({ children, ...props }) => {
             return (
-              <h5 className="text-base text-left text-[#0f172b] mb-2" {...props}>
+              <h5 className="text-base text-left text-[#0f172b] mb-1 mt-2" {...props}>
                 {children}
               </h5>
             );
           },
           h6: ({ children, ...props }) => {
             return (
-              <h6 className="text-sm text-left text-[#0f172b] mb-2" {...props}>
+              <h6 className="text-sm text-left text-[#0f172b] mb-1 mt-2" {...props}>
                 {children}
               </h6>
             );
           },
           table: ({ children, ...props }) => {
             return (
-              <div className="w-full overflow-auto">
+              <div className="w-full overflow-auto my-4">
                 <table
-                  className="w-full text-sm text-left border-collapse my-4 rounded-lg overflow-hidden"
+                  className="w-full text-sm text-left border-collapse rounded-lg overflow-hidden"
                   {...props}
                 >
                   {children}
