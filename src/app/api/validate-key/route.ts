@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     const customClient = togetheraiClientWithKey(apiKey);
     // Make a simple LLM call to validate the API key
     await generateText({
-      model: customClient("Qwen/Qwen2.5-72B-Instruct-Turbo"),
+      model: customClient("moonshotai/Kimi-K2.5"),
       maxOutputTokens: 100,
       messages: [
         {
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
       {
         status: 401,
         headers: { "Content-Type": "application/json" },
-      }
+      },
     );
   }
 }
