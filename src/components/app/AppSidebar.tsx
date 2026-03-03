@@ -173,6 +173,28 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter>
         <ApiKeyControls />
+        <a
+          href="https://github.com/Nutlope/open-deep-research/issues/new"
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-2 px-5 py-2 text-sm text-[#4a5565] hover:text-[#1e2939] transition-colors"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+            <polyline points="15 3 21 3 21 9" />
+            <line x1="10" y1="14" x2="21" y2="3" />
+          </svg>
+          <span>Suggest a feature or bug</span>
+        </a>
         <div className="flex flex-row items-center gap-2 px-5 pt-3 border-t border-t-[#E5E7EB]">
           <SignedIn>
             <UserButton

@@ -1,9 +1,17 @@
 import { INSPIRED_BY_LINK } from "@/lib/utils";
 import { FaGithub } from "react-icons/fa";
 
-export const Footer = () => {
+interface FooterProps {
+  isLoggedIn?: boolean;
+}
+
+export const Footer = ({ isLoggedIn = false }: FooterProps) => {
   return (
-    <div className="w-full flex justify-center items-center text-xs text-zinc-400 leading-5 px-4 py-2 bottom-4 fixed left-0 z-50">
+    <div
+      className={`w-full flex justify-center items-center text-xs text-zinc-400 leading-5 px-4 py-2 bottom-4 fixed left-0 z-50 ${
+        isLoggedIn ? "md:left-[var(--sidebar-width)] md:w-[calc(100vw-var(--sidebar-width))]" : ""
+      } transition-all duration-200`}
+    >
       <div className="flex flex-row items-center gap-0">
         <span className="px-3">
           Powered by{" "}
