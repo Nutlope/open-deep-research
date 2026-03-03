@@ -33,7 +33,7 @@ export const LandingHero = () => {
         </div>
         <img
           src="/together.png"
-          className="w-[77.3px] h-[16.3px] mt-0.5 object-fill"
+          className="w-[77.3px] h-[16.3px] object-fill"
           alt="Together.ai logo"
         />
       </a>
