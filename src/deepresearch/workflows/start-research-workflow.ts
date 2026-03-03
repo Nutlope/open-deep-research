@@ -299,7 +299,7 @@ export const startResearchWorkflow = createWorkflow<
         togetherApiKey || "",
       ).images.generate({
         prompt: imageGenerationPrompt.text,
-        model: "black-forest-labs/FLUX.1-dev",
+        model: "black-forest-labs/FLUX.2-dev",
         width: 1024,
         height: 768,
         steps: 30,
