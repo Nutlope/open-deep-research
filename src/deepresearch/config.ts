@@ -23,8 +23,8 @@ export const AVAILABLE_MODELS = [
     label: "Deepseek V3.1",
   },
   {
-    value: "moonshotai/Kimi-K2-Instruct",
-    label: "Kimi K2",
+    value: "MiniMaxAI/MiniMax-M2.5",
+    label: "MiniMax M2.5",
   },
   {
     value: "Qwen/Qwen3-235B-A22B-Instruct-2507-tput",
@@ -34,10 +34,6 @@ export const AVAILABLE_MODELS = [
     value: "zai-org/GLM-4.7",
     label: "GLM 4.7",
   },
-  // {
-  //   value: "moonshotai/Kimi-K2.5",
-  //   label: "Kimi K2.5",
-  // },
 ] as const;
 
 // Default model for report generation

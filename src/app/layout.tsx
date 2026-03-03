@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "Open Deep Research",
   description: "Let AI do research for you",
   openGraph: {
-    images: ["https://www.opendeepresearch.dev/og.jpg"],
+    images: ["https://www.opendeepresearch.dev/og.png"],
   },
 };
 

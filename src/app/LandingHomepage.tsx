@@ -79,7 +79,7 @@ export const LandingHomepage = () => {
           />
         )}
 
-        <Footer />
+        <Footer isLoggedIn={isSignedIn ?? false} />
       </div>
     </div>
   );

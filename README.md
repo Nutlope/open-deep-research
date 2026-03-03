@@ -1,5 +1,5 @@
 <a href="https://www.opendeepresearch.dev/">
-<img alt="Open Deep Research" src="./public/og.jpg">
+<img alt="Open Deep Research" src="./public/og.png">
 </a>
 
 <div align="center">

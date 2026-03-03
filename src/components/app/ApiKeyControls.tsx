@@ -14,9 +14,9 @@ import { toast } from "sonner";
 // Context for Together API Key
 const TogetherApiKeyContext = createContext<
   | {
-      apiKey: string | undefined;
-      setApiKey: (key: string | undefined) => void;
-    }
+    apiKey: string | undefined;
+    setApiKey: (key: string | undefined) => void;
+  }
   | undefined
 >(undefined);
 
@@ -140,14 +140,14 @@ export function ApiKeyControls() {
       </div>
 
       <p className="text-xs font-light text-left">
-        <span className="text-[#99a1af]">Don't have an API key? </span>
+        <span className="text-[#99a1af]">Don't have an API key? </span><br />
         <a
           href={TOGETHER_LINK}
           target="_blank"
           rel="noreferrer"
           className="text-[#6a7282] underline underline-offset-2"
         >
-          Get one for free.
+          Get one for free from Together.ai.
         </a>
       </p>
     </div>
