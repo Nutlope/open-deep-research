@@ -34,7 +34,9 @@ export const ChatInput = ({
   });
   const [selectedModel, setSelectedModel] = useState<string>(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("selectedModel") || DEFAULT_ANSWER_MODEL;
+      const storedModel = localStorage.getItem("selectedModel");
+      const isValidModel = storedModel && AVAILABLE_MODELS.some((m) => m.value === storedModel);
+      return isValidModel ? storedModel : DEFAULT_ANSWER_MODEL;
     }
     return DEFAULT_ANSWER_MODEL;
   });
