@@ -174,7 +174,7 @@ export function AppSidebar() {
       <SidebarFooter>
         <ApiKeyControls />
         <a
-          href="https://github.com/Nutlope/open-deep-research/issues/new"
+          href="https://github.com/Nutlope/open-deep-research/issues"
           target="_blank"
           rel="noreferrer"
           className="flex items-center gap-2 px-5 py-2 text-sm text-[#4a5565] hover:text-[#1e2939] transition-colors"
