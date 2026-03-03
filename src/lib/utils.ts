@@ -61,29 +61,29 @@ export function cleanMarkdownToText(markdownText: string | undefined): string {
  * Returns an array of objects: { level: number, text: string }
  */
 export function extractMarkdownHeadings(
-  markdownText: string
+  markdownText: string,
 ): Array<{ level: number; text: string }> {
   if (!markdownText) return [];
-  
+
   // More robust regex that handles various markdown heading formats
   // Matches headings like: # Heading, ## Heading, ### Heading
   const headingRegex = /^(#{1,3})\s+(.+?)(?:\s*)$/gm;
   const headings: Array<{ level: number; text: string }> = [];
   let match;
-  
+
   while ((match = headingRegex.exec(markdownText)) !== null) {
     const level = match[1].length;
     if (level >= 1 && level <= 3) {
       // Clean the text by trimming whitespace and removing any trailing markdown artifacts
       let text = match[2].trim();
       // Remove any trailing hashes that might be part of the heading in some markdown formats
-      text = text.replace(/\s*#+\s*$/, '').trim();
+      text = text.replace(/\s*#+\s*$/, "").trim();
       // Remove markdown bold markers
-      text = text.replace(/\*\*(.*?)\*\*/g, '$1');
+      text = text.replace(/\*\*(.*?)\*\*/g, "$1");
       headings.push({ level, text });
     }
   }
-  
+
   return headings;
 }
 
@@ -100,14 +100,17 @@ export function slugifyFilename(str: string, maxLength = 24): string {
 
 export const TOGETHER_LINK = "https://togetherai.link/";
 
+export const INSPIRED_BY_LINK =
+  "https://github.com/togethercomputer/open_deep_research";
+
 // Compress prompt by removing extra whitespace
 export function compressPrompt(prompt: string): string {
   return prompt
-    .split('\n')
-    .map(line => line.trim())
-    .filter(line => line.length > 0)
-    .join(' ')
-    .replace(/\s+/g, ' ');
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0)
+    .join(" ")
+    .replace(/\s+/g, " ");
 }
 
 // Helper to parse slug from URL

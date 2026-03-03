@@ -88,7 +88,7 @@ export function AppSidebar() {
               />
             </svg>
             <a href={TOGETHER_LINK} target="_blank" rel="noreferrer">
-              <img src="/madeBy.png" className="h-[18px] min-w-[63px]" />
+              <img src="/madeby.svg" className="h-[24px] min-w-[63px]" />
             </a>
           </div>
           <button
@@ -152,11 +152,10 @@ export function AppSidebar() {
                   <Link
                     onClick={() => setOpenMobile(false)}
                     href={`/chat/${chat.id}`}
-                    className={`text-base text-left overflow-hidden ${
-                      isActive
-                        ? " text-[#1e2939] !font-medium"
-                        : "text-[#4a5565]"
-                    }`}
+                    className={`text-base text-left overflow-hidden ${isActive
+                      ? " text-[#1e2939] !font-medium"
+                      : "text-[#4a5565]"
+                      }`}
                   >
                     <span className="truncate">
                       {chat.title || chat.initialUserMessage}
