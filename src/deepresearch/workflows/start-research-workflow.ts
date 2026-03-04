@@ -295,10 +295,8 @@ export const startResearchWorkflow = createWorkflow<
         timestamp: Date.now(),
       });
 
-      if (!togetherApiKey) return undefined;
-
       const generatedImage = await togetheraiWithKey(
-        togetherApiKey || "",
+        togetherApiKey,
       ).images.generate({
         prompt: imageGenerationPrompt.text,
         model: "black-forest-labs/FLUX.2-dev",

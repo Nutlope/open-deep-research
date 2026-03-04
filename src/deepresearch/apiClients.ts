@@ -25,7 +25,7 @@ export function togetheraiClientWithKey(apiKey: string) {
   });
 }
 
-export function togetheraiWithKey(apiKey: string) {
+export function togetheraiWithKey(apiKey?: string) {
   const options: ConstructorParameters<typeof Together>[0] = {
     apiKey: apiKey || process.env.TOGETHER_API_KEY,
   };

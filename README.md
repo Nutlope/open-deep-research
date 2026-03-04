@@ -11,7 +11,7 @@
 
 ## Tech Stack
 
-- **Next.js 15** with App Router for modern web development
+- **Next.js 16** with App Router for modern web development
 - **Together.ai** for advanced LLM research, planning, and summarization
 - **Clerk** for authentication
 - **Drizzle ORM** and **Neon** for database management

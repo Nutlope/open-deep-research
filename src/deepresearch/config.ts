@@ -247,8 +247,10 @@ Using **ONLY the provided sources**, produce a Markdown document (aim for 3-5 pa
 * Group findings into thematic categories
 * Compare/contrast different sources' perspectives
 * Highlight patterns, contradictions, and evidence quality
-* MUST include **inline citations** in the format "[INLINE_CITATION](https://...)" after every key claim or data point
-* Never make factual statements without providing the corresponding citation
+  * MUST include **inline citations** using the format "[INLINE_CITATION](https://source-url)" after every key claim
+ * **NEVER use formats like "[CITATION: Source Name]" or "[CITATION: Health Travel]" - these are WRONG**
+ * **CORRECT**: "Kamalaya was named #1 wellness resort "[INLINE_CITATION](https://example.com)""
+ * **WRONG**: "Kamalaya was named #1 wellness resort [CITATION: Health Travel]"
 
 ## 4. **Conclusion**
 
@@ -263,13 +265,15 @@ Using **ONLY the provided sources**, produce a Markdown document (aim for 3-5 pa
 
 * **Heading formatting**: Use clean Markdown headings without extra formatting - "## Introduction" not "## **Introduction**" or "**Introduction**"
 
-* **Strict source adherence**: Every factual claim must cite a source using "[INLINE_CITATION](https://...)"
+  * **Strict source adherence**: Every factual claim must include "[INLINE_CITATION](https://source-url)"
+  * **WRONG**: "[CITATION: Source Name]" - NEVER use this
+  * **CORRECT**: "according to a recent study "[INLINE_CITATION](https://source-url)""
 * **Analytical depth**: Prioritize insight generation over simple information reporting
 * **Objective framing**: Present conflicting evidence neutrally, without bias
 * **Information hierarchy**: Use "##" for main sections, "###" for subsections
 * **Heading formatting**: DO NOT add extra asterisks around heading text - use clean headings like "## Introduction" not "## **Introduction**" or "**Introduction**"
 * **Visual clarity**: Format tables using "|" delimiters and alignment markers
-* **Citation integrity**: Ensure all claims are linked to an inline citation
+  * **Citation integrity**: Ensure all claims include "[INLINE_CITATION](https://source-url)"
 * **Conciseness**: Keep the report focused and avoid excessive length while maintaining analytical depth
 
 ---
@@ -291,58 +295,58 @@ Using **ONLY the provided sources**, produce a Markdown document (aim for 3-5 pa
 
 ## Abstract
 
-[Paragraph 1...]
+Paragraph 1...
 
-[Paragraph 2...]
+Paragraph 2...
 
 ## Introduction
 
-[Opening paragraph with background...]
+Opening paragraph with background...
 
-[Paragraph 2 expanding context...]
+Paragraph 2 expanding context...
 
-[Paragraph 3 outlining the structure...]
+Paragraph 3 outlining the structure...
 
 ## [Primary Theme]
 
-[Paragraph 1 of analysis with inline citations like this: According to a recent study [INLINE_CITATION](https://source1.com)...]
+Paragraph 1 of analysis with inline citations like this: According to a recent study "[INLINE_CITATION](https://source1.com)"...
 
-[Paragraph 2 comparing perspectives [INLINE_CITATION](https://source2.com)...]
+Paragraph 2 comparing perspectives "[INLINE_CITATION](https://source2.com)"...
 
-[Paragraph 3 discussing patterns or contradictions [INLINE_CITATION](https://source3.com)...]
+Paragraph 3 discussing patterns or contradictions "[INLINE_CITATION](https://source3.com)"...
 
 ### [Subtheme]
 
-[Detailed exploration in paragraph form...]
+Detailed exploration in paragraph form...
 
-[Follow-up paragraph...]
+Follow-up paragraph...
 
-[Third paragraph if necessary...]
+Third paragraph if necessary...
 
 ### [Subtheme Where Table or Chart is Helpful]
 
-*Table X: Comparative Metrics on [Topic] [INLINE_CITATION](https://source4.com)*
+*Table X: Comparative Metrics on [Topic] "[INLINE_CITATION](https://source4.com)"*
 
-| Comparison Aspect | Source A [INLINE_CITATION](https://sourceA.com) | Source B [INLINE_CITATION](https://sourceB.com) |
+| Comparison Aspect | Source A "[INLINE_CITATION](https://sourceA.com)" | Source B "[INLINE_CITATION](https://sourceB.com)" |
 |-------------------|--------------------------------|--------------------------------|
 | Key Metric        | xx%                            | xx%                            |
 
-[Paragraph analysis interpreting the table content...]
+Paragraph analysis interpreting the table content...
 
 ## Conclusion
 
-[Synthesized findings and implications [INLINE_CITATION](https://source5.com)...]
+Synthesized findings and implications "[INLINE_CITATION](https://source5.com)"...
 
-[Discussion of limitations...]
+Discussion of limitations...
 
-[Recommendations for future work...]
+Recommendations for future work...
 
-[Final summary paragraph...]
+Final summary paragraph...
 
 ---
 
 **Before writing**, analyze how the sources relate.
-Ensure inline citations use "[INLINE_CITATION](https://...)" formatting.
+Ensure inline citations use "[INLINE_CITATION](https://source-url)" formatting.
 Use at least **2-3 full paragraphs per section**. Avoid short sections or outline-like writing.
 Think like you're writing a **detailed article**, not a lengthy book chapter — with deep reasoning, structured arguments, and fluent transitions while keeping concise.
 
@@ -360,13 +364,10 @@ Using **ONLY the provided sources**, create a clear, well-structured Markdown re
 - **JUMP STRAIGHT INTO THE CONTENT** - start directly with the main heading or answer
 - **NO** meta-commentary about the report structure
 
- # Citation Requirements
- - **MUST include inline citations** in the format "[INLINE_CITATION](https://...)" after every key claim or data point
- - **Never make factual statements without providing the corresponding citation**
- - **PRIORITIZE DIRECT WEBSITES**: Link to actual restaurant websites when available
- - **AVOID LISTICLES**: Don't link to generic "best restaurants" articles if direct sites exist
- - **USE PROPER FORMAT**: [Restaurant Name](direct-website-url) for restaurant links
- - **SOURCE CITATIONS**: Use [Source](article-url) for information sources
+  # Citation Requirements
+  - **MUST include inline citations** using the format "[INLINE_CITATION](https://source-url)" after every key claim
+  - **NEVER use formats like "[CITATION: Source Name]" - this is WRONG**
+  - **CORRECT**: "Kamalaya was named #1 wellness resort "[INLINE_CITATION](https://example.com)""
 
 # Smart Report Guidelines
 
@@ -382,8 +383,8 @@ Using **ONLY the provided sources**, create a clear, well-structured Markdown re
 
 ## Key Requirements
   - **Be user-friendly**: Write conversationally, like explaining to a friend
-  - **Strict source adherence**: Every factual claim must cite a source using "[INLINE_CITATION](https://...)"
-  - **Include citations**: Use "[INLINE_CITATION](https://...)" format for claims, direct restaurant links when possible
+  - **Strict source adherence**: Every factual claim must include "[INLINE_CITATION](https://source-url)"
+  - **Include citations**: Use "[INLINE_CITATION](https://source-url)" format for all claims
   - **Hybrid format**: Use narrative introductions to set the scene, then bullet points for key practical facts
   - **Highlight key takeaways** with bold text or clear summaries
   - **Focus on what matters**: Prioritize practical details and engaging descriptions over academic analysis
