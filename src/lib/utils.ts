@@ -5,6 +5,17 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function cleanMarkdownBold(text: string): string {
+  return text.replace(/\*\*(.*?)\*\*/g, "$1");
+}
+
+export function generateAnchorId(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 export function getDomainFromUrl(url: string): string {
   try {
     return new URL(url).hostname;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { cn, extractMarkdownHeadings } from "@/lib/utils";
+import { cn, extractMarkdownHeadings, generateAnchorId } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const TableOfContents = ({ markdown }: { markdown: string }) => {
@@ -12,12 +12,9 @@ export const TableOfContents = ({ markdown }: { markdown: string }) => {
   useEffect(() => {
     // Function to update currentHash based on scroll position
     const handleScroll = () => {
-      const OFFSET = 80; // header offset
+      const OFFSET = 80;
       const headingAnchors = headings.map((heading) => {
-        const anchor = heading.text
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, "");
+        const anchor = generateAnchorId(heading.text);
         return {
           id: anchor,
           el: document.getElementById(anchor),
@@ -52,10 +49,7 @@ export const TableOfContents = ({ markdown }: { markdown: string }) => {
     <div className="hidden xl:block w-full max-w-xs xl:max-w-[220px] mb-6 xl:mb-0 xl:mr-6 sticky top-6 max-h-[calc(100vh-48px)] overflow-auto border-l border-[#E2E8F0]">
       <ul className="space-y-1">
         {headings.map((heading, idx) => {
-          const anchor = heading.text
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/(^-|-$)/g, "");
+          const anchor = generateAnchorId(heading.text);
           const isActive = currentHash === `#${anchor}`;
           return (
             <motion.li

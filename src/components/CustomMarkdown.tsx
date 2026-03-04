@@ -4,6 +4,7 @@ import { code } from "@streamdown/code";
 import Link from "next/link";
 import { FaviconImage } from "./FaviconImage";
 import { CitationTooltip } from "./app/citations/CitationTooltip";
+import { cleanMarkdownBold, generateAnchorId } from "@/lib/utils";
 import "streamdown/styles.css";
 
 interface CustomMarkdownProps {
@@ -25,9 +26,7 @@ const getHeadingText = (children: React.ReactNode): string => {
     })
     .join("");
 
-  const cleanText = textContent.replace(/\*\*(.*?)\*\*/g, "$1");
-
-  return cleanText;
+  return cleanMarkdownBold(textContent);
 };
 
 export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({
@@ -127,11 +126,7 @@ export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({
             );
           },
           h1: ({ children, ...props }) => {
-            const headingText = getHeadingText(children);
-            const anchor = headingText
-              .toLowerCase()
-              .replace(/[^a-z0-9]+/g, "-")
-              .replace(/(^-|-$)/g, "");
+            const anchor = generateAnchorId(getHeadingText(children));
             return (
               <h1
                 id={anchor}
@@ -143,11 +138,7 @@ export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({
             );
           },
           h2: ({ children, ...props }) => {
-            const headingText = getHeadingText(children);
-            const anchor = headingText
-              .toLowerCase()
-              .replace(/[^a-z0-9]+/g, "-")
-              .replace(/(^-|-$)/g, "");
+            const anchor = generateAnchorId(getHeadingText(children));
             return (
               <h2
                 id={anchor}
@@ -159,11 +150,7 @@ export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({
             );
           },
           h3: ({ children, ...props }) => {
-            const headingText = getHeadingText(children);
-            const anchor = headingText
-              .toLowerCase()
-              .replace(/[^a-z0-9]+/g, "-")
-              .replace(/(^-|-$)/g, "");
+            const anchor = generateAnchorId(getHeadingText(children));
             return (
               <h3
                 id={anchor}
