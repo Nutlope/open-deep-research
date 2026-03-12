@@ -62,32 +62,32 @@ export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({
         isAnimating={isStreaming}
         components={{
           p: ({ children }) => (
-            <p className="text-base font-light text-left text-[#0f172b] leading-7 mb-3">
+            <p className="text-base font-light text-left text-[#0f172b] leading-7 mb-5">
               {children}
             </p>
           ),
-          hr: () => <hr className="my-4 border-border" />,
+          hr: () => <hr className="my-6 border-border" />,
           pre: ({ children }) => <>{children}</>,
           img: (props) => {
-            return <img className="max-w-full rounded-lg my-4" {...props} />;
+            return <img className="max-w-full rounded-lg my-5" {...props} />;
           },
           ol: ({ children, ...props }) => {
             return (
-              <ol className="list-decimal list-outside ml-4 my-2" {...props}>
+              <ol className="list-decimal list-outside ml-4 my-4" {...props}>
                 {children}
               </ol>
             );
           },
           li: ({ children, ...props }) => {
             return (
-              <li className="py-0.5 leading-7" {...props}>
+              <li className="py-1.5 leading-7" {...props}>
                 {children}
               </li>
             );
           },
           ul: ({ children, ...props }) => {
             return (
-              <ul className="list-disc list-outside ml-4 my-2" {...props}>
+              <ul className="list-disc list-outside ml-4 my-4" {...props}>
                 {children}
               </ul>
             );
@@ -130,7 +130,7 @@ export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({
             return (
               <h1
                 id={anchor}
-                className="text-[28px] md:text-[40px] font-medium text-left text-[#0f172b] mb-2 mt-4 leading-[48px]"
+                className="text-[28px] md:text-[40px] font-medium text-left text-[#0f172b] mb-4 mt-8 leading-[48px]"
                 {...props}
               >
                 {children}
@@ -142,7 +142,7 @@ export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({
             return (
               <h2
                 id={anchor}
-                className="text-2xl md:text-[28px] text-left font-medium text-[#0f172b] mb-2 mt-4"
+                className="text-2xl md:text-[28px] text-left font-medium text-[#0f172b] mb-4 mt-6"
                 {...props}
               >
                 {children}
@@ -154,7 +154,7 @@ export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({
             return (
               <h3
                 id={anchor}
-                className="text-[18px] md:text-xl text-left text-[#0f172b] mb-1.5 mt-3"
+                className="text-[18px] md:text-xl text-left text-[#0f172b] mb-3 mt-5"
                 {...props}
               >
                 {children}
@@ -184,7 +184,7 @@ export const CustomMarkdown: React.FC<CustomMarkdownProps> = ({
           },
           table: ({ children, ...props }) => {
             return (
-              <div className="w-full overflow-auto my-4">
+              <div className="w-full overflow-auto my-5">
                 <table
                   className="w-full text-sm text-left border-collapse rounded-lg overflow-hidden"
                   {...props}
