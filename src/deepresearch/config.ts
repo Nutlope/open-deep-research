@@ -31,8 +31,8 @@ export const AVAILABLE_MODELS = [
     label: "Qwen3",
   },
   {
-    value: "zai-org/GLM-4.7",
-    label: "GLM 4.7",
+    value: "zai-org/GLM-5",
+    label: "GLM 5",
   },
 ] as const;
 
