@@ -1,8 +1,7 @@
+import { auth } from "@clerk/nextjs/server";
 import { streamStorage } from "@/deepresearch/storage";
 import { StreamEvent } from "@/deepresearch/schemas";
 import { getResearch } from "@/db/action";
-
-// Types for streaming data
 
 interface ResearchStatusRow {
   type: "research_status";
@@ -14,6 +13,12 @@ interface ResearchStatusRow {
 export type ResearchEventStreamEvents = ResearchStatusRow | StreamEvent;
 
 export async function GET(req: Request) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
   const { searchParams } = new URL(req.url);
   const chatId = searchParams.get("chatId");
 
@@ -22,16 +27,20 @@ export async function GET(req: Request) {
   }
 
   try {
-    // Get research data from database and events from Redis
     const research = await getResearch(chatId);
+
+    if (!research || research.clerkUserId !== userId) {
+      return new Response("Unauthorized", { status: 401 });
+    }
+
     const events = await streamStorage.getEvents(chatId);
 
     const steps: ResearchEventStreamEvents[] = [
       {
         type: "research_status",
-        status: research?.status || "pending",
+        status: research.status || "pending",
         timestamp:
-          research?.researchStartedAt?.getTime() || new Date().getTime(),
+          research.researchStartedAt?.getTime() || new Date().getTime(),
         iteration: -1,
       },
       ...events,

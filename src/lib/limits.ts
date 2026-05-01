@@ -12,7 +12,6 @@ const redis =
 
 const isLocal = process.env.NODE_ENV !== "production";
 
-// 1 per day
 const ratelimit =
   !isLocal && redis
     ? new Ratelimit({
@@ -22,7 +21,6 @@ const ratelimit =
       })
     : undefined;
 
-// 15 per day for people bringing their own API key
 const byokRateLimit =
   !isLocal && redis
     ? new Ratelimit({
@@ -36,11 +34,18 @@ const DEFAULT_LIMIT = 5;
 const DEFAULT_RESET = null;
 const BYOK_PREFIX = "byok-";
 
-const fallbackResult = {
+const fallbackAllow = {
   success: true,
   remaining: DEFAULT_LIMIT,
   limit: DEFAULT_LIMIT,
   reset: DEFAULT_RESET,
+};
+
+const fallbackDeny = {
+  success: false,
+  remaining: 0,
+  limit: 0,
+  reset: null,
 };
 
 export const limitResearch = async ({
@@ -50,21 +55,25 @@ export const limitResearch = async ({
   clerkUserId?: string;
   isBringingKey?: boolean;
 }) => {
-  // Unlimited for users with together.ai email
   if (clerkUserId) {
     const client = await clerkClient();
     try {
       const user = await client.users.getUser(clerkUserId);
       const email = user.emailAddresses?.[0]?.emailAddress;
       if (email && email.endsWith("@together.ai")) {
-        return fallbackResult;
+        return fallbackAllow;
       }
-    } catch (e) {
-      // If Clerk fails, fallback to normal rate limiting
+    } catch {
+      // If Clerk fails, continue to normal rate limiting
     }
   }
-  if (!ratelimit || !byokRateLimit || !clerkUserId) {
-    return fallbackResult;
+
+  if (!clerkUserId) {
+    return fallbackDeny;
+  }
+
+  if (!ratelimit || !byokRateLimit) {
+    return fallbackDeny;
   }
 
   const result = isBringingKey
@@ -86,21 +95,25 @@ export const getRemainingResearch = async ({
   clerkUserId?: string;
   isBringingKey?: boolean;
 }) => {
-  // Unlimited for users with together.ai email
   if (clerkUserId) {
     try {
       const client = await clerkClient();
       const user = await client.users.getUser(clerkUserId);
       const email = user.emailAddresses?.[0]?.emailAddress;
       if (email && email.endsWith("@together.ai")) {
-        return fallbackResult;
+        return fallbackAllow;
       }
-    } catch (e) {
-      // If Clerk fails, fallback to normal rate limiting
+    } catch {
+      // If Clerk fails, continue to normal rate limiting
     }
   }
-  if (!ratelimit || !byokRateLimit || !clerkUserId) {
-    return fallbackResult;
+
+  if (!clerkUserId) {
+    return fallbackDeny;
+  }
+
+  if (!ratelimit || !byokRateLimit) {
+    return fallbackDeny;
   }
 
   try {
@@ -109,8 +122,7 @@ export const getRemainingResearch = async ({
       : await ratelimit.getRemaining(clerkUserId);
 
     return result;
-  } catch (e) {
-    console.log(e);
-    return fallbackResult;
+  } catch {
+    return fallbackDeny;
   }
 };
