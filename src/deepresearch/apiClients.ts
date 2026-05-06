@@ -1,6 +1,7 @@
 import { createTogetherAI } from "@ai-sdk/togetherai";
 import Together from "together-ai";
 import Exa from "exa-js";
+import { tavily } from "@tavily/core";
 
 const APP_NAME_HELICONE = "deepresearch";
 
@@ -55,3 +56,5 @@ if (process.env.HELICONE_API_KEY) {
 export const togetherai = new Together(options);
 
 export const exa = new Exa(process.env.EXA_API_KEY ?? "");
+
+export const tavilyClient = tavily({ apiKey: process.env.TAVILY_API_KEY ?? "" });
