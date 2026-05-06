@@ -40,6 +40,7 @@
     "dedent": "^1.7.0",
     "dotenv": "^16.5.0",
     "drizzle-orm": "^0.44.7",
+    "@tavily/core": "^0.6.1",
     "exa-js": "^2.0.6",
     "framer-motion": "^12.9.1",
     "lucide-react": "^0.554.0",
