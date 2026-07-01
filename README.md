@@ -31,7 +31,7 @@
 ## Cloning & running
 
 1. Fork or clone the repo
-2. Create accounts at [Together.ai](https://togetherai.link) and [AWS](https://aws.amazon.com/) for LLM and S3
+2. Create accounts at [Together.ai](https://togetherai.link/?utm_source=open-deep-research&utm_medium=referral&utm_campaign=example-app) and [AWS](https://aws.amazon.com/) for LLM and S3
 3. Set up Clerk for authentication ([Clerk.dev](https://clerk.dev/))
 4. Create a `.env` file (use `.example.env` for reference) and add your API keys
 5. Run `pnpm install` and `pnpm run dev` to install dependencies and start the app locally

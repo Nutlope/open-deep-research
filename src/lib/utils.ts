@@ -109,7 +109,8 @@ export function slugifyFilename(str: string, maxLength = 24): string {
   );
 }
 
-export const TOGETHER_LINK = "https://togetherai.link/";
+export const TOGETHER_LINK =
+  "https://togetherai.link/?utm_source=open-deep-research&utm_medium=referral&utm_campaign=example-app";
 
 export const INSPIRED_BY_LINK =
   "https://github.com/togethercomputer/open_deep_research";

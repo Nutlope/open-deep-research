@@ -18,7 +18,7 @@ export const Footer = ({ isLoggedIn = false }: FooterProps) => {
           <a
             target="_blank"
             rel="noreferrer"
-            href="https://togetherai.link"
+            href="https://togetherai.link/?utm_source=open-deep-research&utm_medium=referral&utm_campaign=example-app"
             className="font-semibold hover:text-[#072d77] transition"
           >
             Together AI
