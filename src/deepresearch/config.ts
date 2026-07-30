@@ -11,28 +11,28 @@ import dedent from "dedent";
 // Specialized models for different stages of the research pipeline
 export const MODEL_CONFIG = {
   planningModel: "openai/gpt-oss-20b", // Used for research planning and evaluation // 128k context window
-  jsonModel: "Qwen/Qwen3-Next-80B-A3B-Instruct", // Used for structured data parsing
-  summaryModel: "Qwen/Qwen3-Next-80B-A3B-Instruct", // Used for web content summarization // 262k context window
-  summaryModelLongPages: "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8", // Used for web content summarization of long pages
+  jsonModel: "Qwen/Qwen3.5-9B", // Used for structured data parsing
+  summaryModel: "Qwen/Qwen3.5-9B", // Used for web content summarization // 262k context window
+  summaryModelLongPages: "MiniMaxAI/MiniMax-M3", // Used for web content summarization of long pages // 524k context window
 };
 
 // Available models for final report generation (user-selectable)
 export const AVAILABLE_MODELS = [
   {
-    value: "deepseek-ai/DeepSeek-V3.1",
-    label: "Deepseek V3.1",
+    value: "deepseek-ai/DeepSeek-V4-Pro",
+    label: "DeepSeek V4 Pro",
   },
   {
-    value: "MiniMaxAI/MiniMax-M2.7",
-    label: "MiniMax M2.7",
+    value: "MiniMaxAI/MiniMax-M3",
+    label: "MiniMax M3",
   },
   {
-    value: "Qwen/Qwen3-235B-A22B-Instruct-2507-tput",
-    label: "Qwen3",
+    value: "Qwen/Qwen3.7-Max",
+    label: "Qwen3.7 Max",
   },
   {
-    value: "zai-org/GLM-5",
-    label: "GLM 5",
+    value: "moonshotai/Kimi-K2.6",
+    label: "Kimi K2.6",
   },
 ] as const;
 
