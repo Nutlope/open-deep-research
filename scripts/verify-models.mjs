@@ -15,11 +15,12 @@ for (const removedModel of [
   "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
   "deepseek-ai/DeepSeek-V3.1",
   "Qwen/Qwen3-235B-A22B-Instruct-2507-tput",
+  "deepseek-ai/DeepSeek-V4-Pro",
   "zai-org/GLM-5",
   "moonshotai/Kimi-K2.5",
 ]) {
   assert.ok(
-    !modelConfiguration.includes(removedModel),
+    !modelConfiguration.includes(`"${removedModel}"`),
     `Removed model is still configured: ${removedModel}`,
   );
 }
@@ -27,12 +28,12 @@ for (const removedModel of [
 for (const currentModel of [
   "MiniMaxAI/MiniMax-M3",
   "Qwen/Qwen3.5-9B",
-  "deepseek-ai/DeepSeek-V4-Pro",
+  "zai-org/GLM-5.2",
   "Qwen/Qwen3.7-Max",
   "moonshotai/Kimi-K2.6",
 ]) {
   assert.ok(
-    modelConfiguration.includes(currentModel),
+    modelConfiguration.includes(`"${currentModel}"`),
     `Expected current model is missing: ${currentModel}`,
   );
 }
