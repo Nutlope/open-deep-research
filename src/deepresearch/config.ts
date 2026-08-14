@@ -30,10 +30,6 @@ export const AVAILABLE_MODELS = [
     value: "Qwen/Qwen3.7-Max",
     label: "Qwen3.7 Max",
   },
-  {
-    value: "moonshotai/Kimi-K2.6",
-    label: "Kimi K2.6",
-  },
 ] as const;
 
 // Default model for report generation
