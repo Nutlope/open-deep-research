@@ -19,8 +19,8 @@ export const MODEL_CONFIG = {
 // Available models for final report generation (user-selectable)
 export const AVAILABLE_MODELS = [
   {
-    value: "deepseek-ai/DeepSeek-V4-Pro",
-    label: "DeepSeek V4 Pro",
+    value: "zai-org/GLM-5.2",
+    label: "GLM 5.2",
   },
   {
     value: "MiniMaxAI/MiniMax-M3",
@@ -29,10 +29,6 @@ export const AVAILABLE_MODELS = [
   {
     value: "Qwen/Qwen3.7-Max",
     label: "Qwen3.7 Max",
-  },
-  {
-    value: "moonshotai/Kimi-K2.6",
-    label: "Kimi K2.6",
   },
 ] as const;
 
