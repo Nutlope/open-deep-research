@@ -23,6 +23,10 @@ export const AVAILABLE_MODELS = [
     label: "GLM 5.2",
   },
   {
+    value: "deepseek-ai/DeepSeek-V4-Pro-0813",
+    label: "DeepSeek V4 Pro 0813",
+  },
+  {
     value: "MiniMaxAI/MiniMax-M3",
     label: "MiniMax M3",
   },

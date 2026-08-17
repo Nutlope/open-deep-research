@@ -13,6 +13,7 @@ for (const currentModel of [
   "MiniMaxAI/MiniMax-M3",
   "Qwen/Qwen3.5-9B",
   "zai-org/GLM-5.2",
+  "deepseek-ai/DeepSeek-V4-Pro-0813",
   "Qwen/Qwen3.7-Max",
 ]) {
   assert.ok(
