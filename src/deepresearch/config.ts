@@ -10,7 +10,7 @@ import dedent from "dedent";
 // Model Selection
 // Specialized models for different stages of the research pipeline
 export const MODEL_CONFIG = {
-  planningModel: "openai/gpt-oss-20b", // Used for research planning and evaluation // 128k context window
+  planningModel: "Qwen/Qwen3.5-9B", // Used for research planning and evaluation // 262k context window
   jsonModel: "Qwen/Qwen3.5-9B", // Used for structured data parsing
   summaryModel: "Qwen/Qwen3.5-9B", // Used for web content summarization // 262k context window
   summaryModelLongPages: "MiniMaxAI/MiniMax-M3", // Used for web content summarization of long pages // 524k context window
